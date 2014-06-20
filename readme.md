@@ -7,6 +7,8 @@ MapEditer is a simple and straightforward iPhone app that can add or edit exisit
 
 ## Project Setup
 
+[![Build Status](https://travis-ci.org/hanchao/MapEditer.svg?branch=master)](https://travis-ci.org/hanchao/MapEditer)
+
 * clone
 
 `git clone https://github.com/hanchao/MapEditer.git`

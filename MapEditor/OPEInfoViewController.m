@@ -22,8 +22,6 @@
 
 #import "OPEInfoViewController.h"
 #import "OPEAPIConstants.h"
-#import "UVConfig.h"
-#import "UserVoice.h"
 #import "OPEUtility.h"
 #import "OPEConstants.h"
 #import "OPEStrings.h"
