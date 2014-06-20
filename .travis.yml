@@ -1,0 +1,8 @@
+language: objective-c
+xcode_workspace: MapEditor.xcworkspace
+xcode_scheme: MapEditor
+xcode_sdk: iphonesimulator
+
+before_install:
+  - sudo gem update --system
+  - sudo gem install cocoapods
