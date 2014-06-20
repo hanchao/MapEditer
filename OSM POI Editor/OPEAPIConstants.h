@@ -29,6 +29,8 @@
 
 #define bingMapsKey @""
 
+#define HOCKEY_BETA_IDENTIFIER @""
+#define HOCKEY_LIVE_IDENTIFIER @""
 
 
 @end
