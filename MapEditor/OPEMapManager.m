@@ -100,7 +100,7 @@
                 imageString = @"none.png";
             
             icon = [self imageWithBorderFromImage:[UIImage imageNamed:imageString]]; //center image inside box
-            [self.imageDictionary setObject:icon forKey:managedOsmElement.type.imageString];
+            [self.imageDictionary setObject:icon forKey:imageString];
         }
     }
     RMMarker *newMarker = [[RMMarker alloc] initWithUIImage:icon anchorPoint:CGPointMake(0.5, 0.5)];

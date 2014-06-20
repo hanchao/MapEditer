@@ -98,18 +98,18 @@
     
     __weak OPENoteViewController * viewController = self;
     
-//    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-//        CGRect messageInputBarFrame = commentInputBar.frame;
-//        messageInputBarFrame.origin.y = keyboardFrameInView.origin.y - messageInputBarFrame.size.height;
-//        commentInputBar.frame = messageInputBarFrame;
-//        
-//        UIEdgeInsets insets = tableView.contentInset;
-//        
-//        
-//        insets.bottom = viewController.view.frame.size.height - commentInputBar.frame.origin.y;
-//        tableView.contentInset = insets;
-//        tableView.scrollIndicatorInsets = insets;
-//    }];
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView, BOOL opening, BOOL closing) {
+        CGRect messageInputBarFrame = commentInputBar.frame;
+        messageInputBarFrame.origin.y = keyboardFrameInView.origin.y - messageInputBarFrame.size.height;
+        commentInputBar.frame = messageInputBarFrame;
+        
+        UIEdgeInsets insets = tableView.contentInset;
+        
+        
+        insets.bottom = viewController.view.frame.size.height - commentInputBar.frame.origin.y;
+        tableView.contentInset = insets;
+        tableView.scrollIndicatorInsets = insets;
+    }];
     
     UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
     [self.navigationItem setRightBarButtonItem:cancelButtonItem];
