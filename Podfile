@@ -1,10 +1,9 @@
 platform :ios, '7.0'
-inhibit_all_warnings!
 
 pod 'Mapbox', :git => 'https://github.com/mapbox/mapbox-ios-sdk', :branch => 'develop'
+pod 'AFNetworking', '~> 2.2.0'
 pod 'AFOAuth1Client', :git => 'https://github.com/WouterDS/AFOAuth1Client', :branch => 'master'
 pod 'HockeySDK'
-pod 'AFNetworking', '~> 2.2'
 pod 'MBProgressHUD'
 pod 'CocoaLumberjack'
 pod 'TBXML'
