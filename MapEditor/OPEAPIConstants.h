@@ -27,7 +27,7 @@
 #define osmConsumerKey @"PB6oXJDV4EgPfHYD6gq8UMuUsKdZfL0zsMWTCiEu"
 #define osmConsumerSecret @"ubyAxf1nDdlnK9pAd6FbJdy2ddztAx8C8bztnbYz"
 
-#define bingMapsKey @"AnU5uta7s5ql_HTrRZcPLI4_zotvNefEeSxIClF1Jf7eS-mLig1jluUdCoecV7jc"
+#define bingMapsKey @"AgeGHIk64mZq4yRe-qtKjXbnZma-MvH9zfksJ72RQcHlwKelrcT131DOUCi2gZeH"
 
 
 @end
