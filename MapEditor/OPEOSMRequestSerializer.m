@@ -11,7 +11,6 @@
 #import "AFOAuth1Client.h"
 #import "OPEConstants.h"
 #import "OPEAPIConstants.h"
-#import "GTMOAuthAuthentication.h"
 
 @interface OPEOSMRequestSerializer ()
 
@@ -26,11 +25,11 @@
     NSMutableURLRequest * request = [super requestWithMethod:method URLString:URLString parameters:parameters error:error];
     
     if (self.oAuthToken) {
-        GTMOAuthAuthentication *auth = [self osmAuth];
-        auth.token = self.oAuthToken.key;
-        auth.tokenSecret = self.oAuthToken.secret;
-        
-        [auth authorizeRequest:request];
+//        GTMOAuthAuthentication *auth = [self osmAuth];
+//        auth.token = self.oAuthToken.key;
+//        auth.tokenSecret = self.oAuthToken.secret;
+//        
+//        [auth authorizeRequest:request];
     }
     
     
@@ -45,16 +44,16 @@
     return _oAuthToken;
 }
 
-- (GTMOAuthAuthentication *)osmAuth
-{
-    GTMOAuthAuthentication *auth;
-    auth = [[GTMOAuthAuthentication alloc] initWithSignatureMethod:kGTMOAuthSignatureMethodHMAC_SHA1
-                                                       consumerKey:osmConsumerKey
-                                                        privateKey:osmConsumerSecret];
-    
-    auth.serviceProvider = @"OSMPOIEditor";
-    
-    return auth;
-}
+//- (GTMOAuthAuthentication *)osmAuth
+//{
+//    GTMOAuthAuthentication *auth;
+//    auth = [[GTMOAuthAuthentication alloc] initWithSignatureMethod:kGTMOAuthSignatureMethodHMAC_SHA1
+//                                                       consumerKey:osmConsumerKey
+//                                                        privateKey:osmConsumerSecret];
+//    
+//    auth.serviceProvider = @"OSMPOIEditor";
+//    
+//    return auth;
+//}
 
 @end

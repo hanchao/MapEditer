@@ -30,7 +30,6 @@
 #import "AFNetworkActivityIndicatorManager.h"
 
 #import "AFOAuth1Client.h"
-#import "OPEAppVersionMigration.h"
 
 @interface OPEAppDelegate ()
 
@@ -42,8 +41,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     application.statusBarStyle = UIStatusBarStyleLightContent;
-    
-    [OPEAppVersionMigration migrateToCurrentVersion];
     
     [OPEDatabaseManager createDatabaseWithError:nil];
     
