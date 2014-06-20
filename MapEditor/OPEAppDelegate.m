@@ -28,12 +28,11 @@
 #import "OPEDatabaseImporter.h"
 #import "OPEDatabaseManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "HockeySDK.h"
 
 #import "AFOAuth1Client.h"
 #import "OPEAppVersionMigration.h"
 
-@interface OPEAppDelegate () <BITHockeyManagerDelegate>
+@interface OPEAppDelegate ()
 
 @end
 
@@ -42,13 +41,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:HOCKEY_BETA_IDENTIFIER
-                                                         liveIdentifier:HOCKEY_LIVE_IDENTIFIER
-                                                               delegate:self];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     [OPEAppVersionMigration migrateToCurrentVersion];
