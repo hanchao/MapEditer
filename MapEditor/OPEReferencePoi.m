@@ -84,10 +84,10 @@
 -(id)initWithSqliteResultDictionary:(NSDictionary *)dictionary
 {
     if (self = [self init]) {
-        self.name = dictionary[@"displayName"];
-        self.imageString = dictionary[@"imageString"];
-        self.editOnly = [dictionary[@"editOnly"] boolValue];
-        self.isLegacy = [dictionary[@"isLegacy"]boolValue];
+        self.name = dictionary[@"displayname"];
+        self.imageString = dictionary[@"imagestring"];
+        self.editOnly = [dictionary[@"editonly"] boolValue];
+        self.isLegacy = [dictionary[@"islegacy"]boolValue];
         self.categoryName = dictionary[@"category"];
         id itemId = dictionary[@"id"];
         if ([itemId isKindOfClass:[NSNumber class]]) {
