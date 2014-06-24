@@ -10,8 +10,8 @@
 #import "OPEStrings.h"
 
 #import "OPELog.h"
-#import "AFOAuth1Client.h"
 #import "OPEAPIConstants.h"
+#import "GTMOAuthViewControllerTouch.h"
 
 #define authErrorTag 101
 
@@ -72,28 +72,82 @@
 
 - (void)signIntoOSM {
     
+    
+    NSURL *requestURL = [NSURL URLWithString:@"http://www.openstreetmap.org/oauth/request_token"];
+    NSURL *accessURL = [NSURL URLWithString:@"http://www.openstreetmap.org/oauth/access_token"];
+    NSURL *authorizeURL = [NSURL URLWithString:@"http://www.openstreetmap.org/oauth/authorize"];
     NSString *scope = @"http://api.openstreetmap.org/";
     
-    NSURL *baseUrl = [NSURL URLWithString:@"https://www.openstreetmap.org/oauth/"];
+    GTMOAuthAuthentication *auth = [OPEOSMAPIManager osmAuth];
+    if (auth == nil) {
+        // perhaps display something friendlier in the UI?
+        DDLogInfo(@"A valid consumer key and consumer secret are required for signing in to OSM");
+    }
     
-    AFOAuth1Client *oAuthClient = [[AFOAuth1Client alloc] initWithBaseURL:baseUrl
-                                                                      key:osmConsumerKey
-                                                                   secret:osmConsumerSecret];
+    // set the callback URL to which the site should redirect, and for which
+    // the OAuth controller should look to determine when sign-in has
+    // finished or been canceled
+    //
+    // This URL does not need to be for an actual web page
+    [auth setCallback:@"http://www.google.com/OAuthCallback"];
     
-    NSURL *callbackUrl = [NSURL URLWithString:@"OSMPOIEDITOR://oauth"];
+    // Display the autentication view
+    GTMOAuthViewControllerTouch * viewController = [[GTMOAuthViewControllerTouch alloc]
+                                                    initWithScope:scope
+                                                    language:nil
+                                                    requestTokenURL:requestURL
+                                                    authorizeTokenURL:authorizeURL
+                                                    accessTokenURL:accessURL
+                                                    authentication:auth
+                                                    appServiceName:@"MapEditor"
+                                                    delegate:self
+                                                    finishedSelector:@selector(viewController:finishedWithAuth:error:)];
     
-    [oAuthClient authorizeUsingOAuthWithRequestTokenPath:@"request_token" userAuthorizationPath:@"authorize" callbackURL:callbackUrl accessTokenPath:@"access_token" accessMethod:@"GET" scope:scope success:^(AFOAuth1Token *accessToken, id responseObject) {
+    [[self navigationController] pushViewController:viewController
+                                           animated:YES];
+}
+
+
+- (void)viewController:(GTMOAuthViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuthAuthentication *)auth
+                 error:(NSError *)error {
+    if (error != nil) {
+        // Authentication failed (perhaps the user denied access, or closed the
+        // window before granting access)
+        DDLogError(@"Authentication error: %@", error);
+        NSData *responseData = [[error userInfo] objectForKey:@"data"];// kGTMHTTPFetcherStatusDataKey
+        if ([responseData length] > 0) {
+            // show the body of the server's authentication failure response
+            NSString *str = [[NSString alloc] initWithData:responseData
+                                                  encoding:NSUTF8StringEncoding];
+            DDLogInfo(@"%@", str);
+        }
         
-        [AFOAuth1Token storeCredential:accessToken withIdentifier:kOPEUserOAuthTokenKey];
-        [self findishedAuthWithError:nil];
+        //[self setAuthentication:nil];
+    } else {
+        // Authentication succeeded
+        //
+        // At this point, we either use the authentication object to explicitly
+        // authorize requests, like
+        //
+        //   [auth authorizeRequest:myNSURLMutableRequest]
+        //
+        // or store the authentication object into a GTM service object like
+        //
+        //   [[self contactService] setAuthorizer:auth];
         
-        DDLogInfo(@"Sucess");
-    } failure:^(NSError *error) {
-        [self findishedAuthWithError:error];
-        DDLogError(@"Error: %@",error);
-    }];
-    
-    return;
+        // save the authentication object
+        //[self setAuthentication:auth];
+        
+        // Just to prove we're signed in, we'll attempt an authenticated fetch for the
+        // signed-in user
+        //[self doAnAuthenticatedAPIFetch];
+        DDLogInfo(@"Suceeed");
+        
+        //[self dismissModalViewControllerAnimated:YES];
+    }
+    [self findishedAuthWithError:error];
+    //[self updateUI];
 }
 
 -(void)findishedAuthWithError:(NSError *)error
@@ -105,6 +159,7 @@
 -(void)startSave
 {
     [self.navigationController.view addSubview:HUD];
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
     [HUD setLabelText:[NSString stringWithFormat:@"%@...",SAVING_STRING]];
     [HUD show:YES];
 }

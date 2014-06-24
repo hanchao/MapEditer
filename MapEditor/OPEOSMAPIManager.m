@@ -19,8 +19,9 @@
 
 #import "OPELog.h"
 #import "OSMStreamParser.h"
-#import "AFOAuth1Client.h"
 #import "OPEConstants.h"
+
+#import "GTMOAuthViewControllerTouch.h"
 
 NSString *const putMethod = @"PUT";
 NSString *const deleteMethod = @"DELETE";
@@ -31,8 +32,6 @@ NSString *const deleteMethod = @"DELETE";
 @property (nonatomic,strong) NSMutableDictionary * nominatimFailures;
 
 @property (nonatomic, strong) OSMStreamParser *streamParser;
-
-@property (nonatomic, strong) AFOAuth1Token *oAuthToken;
 
 @end
 
@@ -48,12 +47,16 @@ NSString *const deleteMethod = @"DELETE";
     return self;
 }
 
-- (AFOAuth1Token *)oAuthToken
+-(GTMOAuthAuthentication *)auth
 {
-    if (!_oAuthToken) {
-        _oAuthToken = [AFOAuth1Token retrieveCredentialWithIdentifier:kOPEUserOAuthTokenKey];
+    if(!_auth)
+    {
+        _auth = [OPEOSMAPIManager osmAuth];
+        [GTMOAuthViewControllerTouch authorizeFromKeychainForName:@"MapEditor" authentication:_auth];
+        [_auth canAuthorize];
     }
-    return _oAuthToken;
+    return _auth;
+    
 }
 
 -(AFHTTPRequestOperationManager *)httpClient
@@ -69,7 +72,7 @@ NSString *const deleteMethod = @"DELETE";
         _httpClient.responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[[AFJSONResponseSerializer serializer],xmlParserResponseSerializer]];
         
         OPEOSMRequestSerializer * requestSerializer = [OPEOSMRequestSerializer serializer];
-
+        [requestSerializer setAuth:self.auth];
         
         [_httpClient setRequestSerializer:requestSerializer];
     }
@@ -303,7 +306,7 @@ withChangesetComment:(NSString *)changesetComment
              success:(void (^)(int64_t changesetID))success
              failure: (void (^)(NSError * error))failure
 {
-    NSString * createdByString = [NSString stringWithFormat:@"POI+ (%@) %@",[OPEUtility appVersion],[OPEUtility iOSVersion]];
+    NSString * createdByString = [NSString stringWithFormat:@"MapEditer (%@) %@",[OPEUtility appVersion],[OPEUtility iOSVersion]];
     
     [changeset.tags setObject:createdByString forKey:@"created_by"];
     [changeset.tags setObject:[OPEUtility tileSourceName] forKey:@"imagery_used"];
@@ -576,22 +579,22 @@ withChangesetComment:(NSString *)changesetComment
     
 }
 
-- (void)fetchUserInfoWithToken:(AFOAuth1Token *)token completion:(void (^)(BOOL success, id responseObject, NSError *error))completionBlock;
-{
-    
-    
-    AFHTTPRequestOperation *requestOperation = [self.httpClient GET:@"user/details" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completionBlock) {
-            completionBlock(YES,responseObject,nil);
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO,nil,error);
-        }
-    }];
-    [requestOperation start];
-}
+//- (void)fetchUserInfoWithToken:(AFOAuth1Token *)token completion:(void (^)(BOOL success, id responseObject, NSError *error))completionBlock;
+//{
+//    
+//    
+//    AFHTTPRequestOperation *requestOperation = [self.httpClient GET:@"user/details" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        if (completionBlock) {
+//            completionBlock(YES,responseObject,nil);
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO,nil,error);
+//        }
+//    }];
+//    [requestOperation start];
+//}
 
 - (void)fetchCurrentUserWithComletion:(void (^)(BOOL success,NSError *error))completionBlock
 {
@@ -612,6 +615,22 @@ withChangesetComment:(NSString *)changesetComment
         }
     }];
     [requestOperation start];
+}
+
++(GTMOAuthAuthentication *)osmAuth {
+    NSString *myConsumerKey = osmConsumerKey;
+    NSString *myConsumerSecret = osmConsumerSecret;
+    
+    GTMOAuthAuthentication *auth;
+    auth = [[GTMOAuthAuthentication alloc] initWithSignatureMethod:kGTMOAuthSignatureMethodHMAC_SHA1
+                                                       consumerKey:myConsumerKey
+                                                        privateKey:myConsumerSecret];
+    
+    // setting the service name lets us inspect the auth object later to know
+    // what service it is for
+    auth.serviceProvider = @"OSMPOIEditor";
+    
+    return auth;
 }
 
 @end

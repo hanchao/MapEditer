@@ -16,13 +16,12 @@
 #import "OSMNote.h"
 #import "OSMComment.h"
 
-
-@class AFOAuth1Token;
+#import "GTMOAuthAuthentication.h"
 
 @interface OPEOSMAPIManager : NSObject
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager * httpClient;
-@property (nonatomic, readonly) AFOAuth1Token *oAuthToken;
+@property (nonatomic, strong) GTMOAuthAuthentication * auth;
 
 -(void)downloadDataWithSW:(CLLocationCoordinate2D)southWest NE:(CLLocationCoordinate2D)northEast
              success:(void (^)(NSData * response))success
@@ -64,6 +63,11 @@ withChangesetComment:(NSString *)changesetComment
 -(void)reopenNote:(OSMNote *)note
          success:(void (^)(NSData * response))success
          failure:(void (^)(NSError *error))failure;
+
+
+- (void)fetchCurrentUserWithComletion:(void (^)(BOOL success,NSError *error))completionBlock;
+
++(GTMOAuthAuthentication *)osmAuth;
 
 
 ////////// User //////////////

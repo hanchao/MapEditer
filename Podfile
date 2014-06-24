@@ -1,8 +1,8 @@
 platform :ios, '7.0'
 
 pod 'Mapbox', :git => 'https://github.com/mapbox/mapbox-ios-sdk', :branch => 'develop'
-pod 'AFNetworking', '~> 2.2.0'
-pod 'AFOAuth1Client', :git => 'https://github.com/WouterDS/AFOAuth1Client', :branch => 'master'
+pod 'AFNetworking'
+pod 'gtm-oauth'
 pod 'MBProgressHUD'
 pod 'CocoaLumberjack'
 pod 'TBXML'

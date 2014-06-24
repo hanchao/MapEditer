@@ -29,8 +29,6 @@
 #import "OPEDatabaseManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
-#import "AFOAuth1Client.h"
-
 @interface OPEAppDelegate ()
 
 @end
@@ -109,9 +107,6 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    NSNotification *notification = [NSNotification notificationWithName:kAFApplicationLaunchedWithURLNotification object:nil userInfo:@{kAFApplicationLaunchOptionsURLKey: url}];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
     return YES;
 }
 

@@ -27,7 +27,8 @@
 #import "OPEStrings.h"
 
 #import "OPELog.h"
-#import "AFOAuth1Client.h"
+
+#import "GTMOAuthViewControllerTouch.h"
 
 
 @implementation OPEInfoViewController
@@ -64,9 +65,50 @@
     
 }
 
+- (void)viewController:(GTMOAuthViewControllerTouch *)viewController
+         finishedWithAuth:(GTMOAuthAuthentication *)auth
+                    error:(NSError *)error {
+    [settingsTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (error != nil) {
+        // Authentication failed (perhaps the user denied access, or closed the
+        // window before granting access)
+        DDLogError(@"Authentication error: %@", error);
+        NSData *responseData = [[error userInfo] objectForKey:@"data"];// kGTMHTTPFetcherStatusDataKey
+        if ([responseData length] > 0) {
+            // show the body of the server's authentication failure response
+            NSString *str = [[NSString alloc] initWithData:responseData
+                                                  encoding:NSUTF8StringEncoding];
+            DDLogInfo(@"%@", str);
+        }
+        
+        //[self setAuthentication:nil];
+    } else {
+        // Authentication succeeded
+        //
+        // At this point, we either use the authentication object to explicitly
+        // authorize requests, like
+        //
+        //   [auth authorizeRequest:myNSURLMutableRequest]
+        //
+        // or store the authentication object into a GTM service object like
+        //
+        //   [[self contactService] setAuthorizer:auth];
+        
+        // save the authentication object
+        //[self setAuthentication:auth];
+        
+        // Just to prove we're signed in, we'll attempt an authenticated fetch for the
+        // signed-in user
+        //[self doAnAuthenticatedAPIFetch];
+    }
+    
+    //[self updateUI];
+}
+
 - (void) signOutOfOSM
 {
-    [AFOAuth1Token deleteCredentialWithIdentifier:kOPEUserOAuthTokenKey];
+    [GTMOAuthViewControllerTouch removeParamsFromKeychainForName:@"MapEditor"];
+
     [settingsTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 -(void)findishedAuthWithError:(NSError *)error
@@ -147,7 +189,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:buttonIdentifier];
         }
         
-        if(!apiManager.oAuthToken)
+        if(!apiManager.auth.canAuthorize)
         {
             cell.textLabel.text = LOGIN_STRING;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -197,7 +239,7 @@
     }
     else if (indexPath.section == 1)
     {
-        if(!apiManager.oAuthToken)
+        if(!apiManager.auth.canAuthorize)
         {
             [self signIntoOSM];
         }
@@ -207,13 +249,7 @@
     }
     else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            //USer voice Feedback
-#ifdef USERVOICE_ENABLED
-            UVConfig *config = [UVConfig configWithSite:USERVOICE_SITE
-                                                 andKey:USERVOICE_KEY
-                                              andSecret:USERVOICE_SECRET];
-            [UserVoice presentUserVoiceInterfaceForParentViewController:self andConfig:config];
-#endif
+
         }
         else
         {

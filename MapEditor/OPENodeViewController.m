@@ -600,7 +600,7 @@
     self.managedOsmElement.action = kActionTypeModify;
     [self.osmData saveDate:[NSDate date] forType:self.managedOsmElement.type];
     
-    if (!self.apiManager.oAuthToken)
+    if (!self.apiManager.auth.canAuthorize)
     {
         [self showAuthError];
     }
@@ -631,7 +631,7 @@
 
 - (void) deleteButtonPressed:(id)sender
 {
-    if (!self.apiManager.oAuthToken)
+    if (!self.apiManager.auth.canAuthorize)
     {
         [self showAuthError];
     }
