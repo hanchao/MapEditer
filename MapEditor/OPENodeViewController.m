@@ -203,7 +203,7 @@
 {
     if(!_deleteButton)
     {
-        BButton *button = [BButton buttonWithType:BButtonTypeDanger];
+        BButton *button = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger style:BButtonStyleBootstrapV3];
         [button setTitle:DELETE_STRING forState:UIControlStateNormal];
         [button addTarget:self action:@selector(deleteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _deleteButton = button;
@@ -214,7 +214,8 @@
 {
     if(!_moveButton)
     {
-        BButton * button = [BButton buttonWithType:BButtonTypePrimary];
+        BButton *button = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypePrimary style:BButtonStyleBootstrapV3];
+
         [button setTitle:MOVE_NODE_STRING forState:UIControlStateNormal];
         [button addTarget:self action:@selector(moveButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _moveButton = button;
@@ -323,13 +324,14 @@
         if ([tempOptional.sectionName isEqualToString:@"Address"]) {
             CGFloat buttonWidth = 150;
             
-            BButton * lookupButton = [BButton buttonWithType:BButtonTypePrimary];
+            BButton *lookupButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypePrimary style:BButtonStyleBootstrapV3];
+
             lookupButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             [lookupButton setTitle:@"Nominatim" forState:UIControlStateNormal];
             [lookupButton addTarget:self action:@selector(nominatimLookupAddress) forControlEvents:UIControlEventTouchUpInside];
             
+            BButton *localLookupButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypePrimary style:BButtonStyleBootstrapV3];
             
-            BButton * localLookupButton = [BButton buttonWithType:BButtonTypePrimary];
             localLookupButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             [localLookupButton setTitle:LOCA_DATA_STRING forState:UIControlStateNormal];
             [localLookupButton addTarget:self action:@selector(localLookupAddress) forControlEvents:UIControlEventTouchUpInside];
