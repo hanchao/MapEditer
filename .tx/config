@@ -4,4 +4,4 @@ host = https://www.transifex.com
 [mapediter.localizablestrings]
 source_lang = en
 source_file = en.lproj/Localizable.strings
-file_filter = <lang>.lproj/Localizable.strings
+file_filter = Resources/<lang>.lproj/Localizable.strings
