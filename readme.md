@@ -19,12 +19,14 @@ MapEditer is a simple and straightforward iPhone app that can add or edit exisit
 
 * open ```MapEditer.xcworkspace``` and run
 
-## Localization
+## Translation
+[![translation chart](https://www.transifex.com/projects/p/mapediter/chart/image_png)](https://www.transifex.com/projects/p/mapediter)
 
-Translate at [Transifex](https://www.transifex.com/projects/p/poi/resource/localizablestrings/)
+update strings
 
-![localization Progress](https://www.transifex.com/projects/p/poi/resource/localizablestrings/chart/image_png)
+```tx pull -a```
 
+```tx pull -f```
 
 ## License
 This software is available under the terms of the GNU GPLv3. [Full license terms](http://www.gnu.org/licenses/gpl.html)
