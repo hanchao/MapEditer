@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 
-pod 'Mapbox', :git => 'https://github.com/mapbox/mapbox-ios-sdk', :branch => 'develop'
+pod 'Mapbox', :git => 'https://github.com/mapbox/mapbox-ios-sdk', :branch => 'release'
 pod 'AFNetworking'
 pod 'gtm-oauth'
 pod 'MBProgressHUD'
