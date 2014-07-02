@@ -26,6 +26,7 @@
 #define SETTINGS_TITLE_STRING NSLocalizedString(@"Settings",@"title for view where settings can be changed")
 #define BING_AERIAL_STRING NSLocalizedString(@"Bing Aerial",@"Setting to select background layer")
 #define MAPQUEST_AERIAL_STRING NSLocalizedString(@"OpenMapquest Aerial",@"Setting to select background layer")
+#define MAPBOX_AERIAL_STRING NSLocalizedString(@"Mapbox Aerial",@"Setting to select background layer")
 #define OSM_DEFAULT_STRING NSLocalizedString(@"OSM Default",@"Setting to select background layer")
 #define NO_NAME_HIGHWAY_STRING NSLocalizedString(@"Show No Name Streets",@"Setting to show or hide streets or highways with no names")
 #define LOGIN_STRING NSLocalizedString(@"Login to OpenStreetMap",@"Login button label")

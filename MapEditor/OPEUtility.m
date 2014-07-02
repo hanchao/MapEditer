@@ -16,6 +16,7 @@
 #import "OPEOpenMapQuestAerialTileSource.h"
 #import "OPEOpenStreetMapSource.h"
 #import "OPEBingTileSource.h"
+#import "RMMapboxSource.h"
 
 @implementation OPEUtility
 
@@ -150,15 +151,17 @@
         num = [[self currentValueForSettingKey:kTileSourceNumber] intValue] ;
         
     }
-    
-    if (num == 1) {
+    if(num == 0 && [bingMapsKey length]){
+        return [[OPEBingTileSource alloc] initWithMapsKey:bingMapsKey];
+    }
+    else if (num == 1) {
         return [[OPEOpenMapQuestAerialTileSource alloc] init];
     }
-    else if (num == 2) {
-        return [[OPEOpenStreetMapSource alloc] init];
+    else if(num == 2 && [mapboxMapID length]){
+        return [[RMMapboxSource alloc] initWithMapID:mapboxMapID];
     }
-    else if([bingMapsKey length]){
-        return [[OPEBingTileSource alloc] initWithMapsKey:bingMapsKey];
+    else if (num == 3) {
+        return [[OPEOpenStreetMapSource alloc] init];
     }
     else
     {
