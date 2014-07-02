@@ -405,23 +405,8 @@
 }
 - (void)infoButtonPressed:(id)sender
 {
-    NSMutableString *attribution = [NSMutableString string];
-    
-    for (id <RMTileSource>tileSource in self.mapView.tileSources)
-    {
-        if ([tileSource respondsToSelector:@selector(shortAttribution)])
-        {
-            if ([attribution length])
-                [attribution appendString:@" "];
-            
-            if ([tileSource shortAttribution])
-                [attribution appendString:[tileSource shortAttribution]];
-        }
-    }
     OPEInfoViewController * viewer = [[OPEInfoViewController alloc] init];
     [viewer setDelegate:self];
-    viewer.attributionString = attribution;
-    //[viewer setCurrentNumber:currentTile];
     viewer.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     viewer.title = SETTINGS_TITLE_STRING;
     [[self navigationController] pushViewController:viewer animated:YES];

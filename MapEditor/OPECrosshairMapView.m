@@ -17,7 +17,6 @@
     {
         self.showLogoBug = NO;
         self.showsUserLocation = YES;
-        self.hideAttribution = YES;
         [self addSubview:self.plusImageView];
         
     }
@@ -30,7 +29,6 @@
     {
         self.showLogoBug = NO;
         self.showsUserLocation = YES;
-        self.hideAttribution = YES;
         [self addSubview:self.plusImageView];
         
     }
