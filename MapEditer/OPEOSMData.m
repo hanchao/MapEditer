@@ -744,7 +744,7 @@
         OPEReferencePoi * poi = nil;
         poi.name = @"";
         while ([set next]) {
-            if (![poi.name isEqualToString:[set stringForColumn:@"displayName"]]) {
+            if (![poi.refName isEqualToString:[set stringForColumn:@"displayName"]]) {
                 poi = [[OPEReferencePoi alloc] initWithSqliteResultDictionary:[set resultDict]];
                 
                 [array addObject: poi];
