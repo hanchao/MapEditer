@@ -691,14 +691,14 @@
 		63292E691593ED670010A11B /* OPETagValueList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPETagValueList.m; sourceTree = "<group>"; };
 		632E0FAE189093FB002C4581 /* OPEConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEConstants.h; sourceTree = "<group>"; };
 		632E0FAF189093FB002C4581 /* OPEConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEConstants.m; sourceTree = "<group>"; };
-		6330AB6A14DB519A00448852 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6330AB6A14DB519A00448852 /* MapEditer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6330AB6E14DB519A00448852 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6330AB7014DB519A00448852 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6330AB7214DB519A00448852 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		6330AB7614DB519A00448852 /* MapEditor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapEditor-Info.plist"; sourceTree = "<group>"; };
+		6330AB7614DB519A00448852 /* MapEditer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapEditer-Info.plist"; sourceTree = "<group>"; };
 		6330AB7814DB519A00448852 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6330AB7A14DB519A00448852 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6330AB7C14DB519A00448852 /* MapEditor-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapEditor-Prefix.pch"; sourceTree = "<group>"; };
+		6330AB7C14DB519A00448852 /* MapEditer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapEditer-Prefix.pch"; sourceTree = "<group>"; };
 		6330AB7D14DB519A00448852 /* OPEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPEAppDelegate.h; sourceTree = "<group>"; };
 		6330AB7E14DB519A00448852 /* OPEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OPEAppDelegate.m; sourceTree = "<group>"; };
 		6330AB8014DB519A00448852 /* OPEViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPEViewController.h; sourceTree = "<group>"; };
@@ -1255,7 +1255,7 @@
 		6330AB5F14DB519A00448852 = {
 			isa = PBXGroup;
 			children = (
-				6330AB7414DB519A00448852 /* MapEditor */,
+				6330AB7414DB519A00448852 /* MapEditer */,
 				6326680617164578002CD7E4 /* Resources */,
 				6330AB6D14DB519A00448852 /* Frameworks */,
 				6330AB6B14DB519A00448852 /* Products */,
@@ -1266,7 +1266,7 @@
 		6330AB6B14DB519A00448852 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6330AB6A14DB519A00448852 /* MapEditor.app */,
+				6330AB6A14DB519A00448852 /* MapEditer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1303,7 +1303,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6330AB7414DB519A00448852 /* MapEditor */ = {
+		6330AB7414DB519A00448852 /* MapEditer */ = {
 			isa = PBXGroup;
 			children = (
 				D637EF9E19541F9000765358 /* osm-parser */,
@@ -1368,7 +1368,8 @@
 				6330AB7514DB519A00448852 /* Supporting Files */,
 				632573DC152108C300478B78 /* MapSources */,
 			);
-			path = MapEditor;
+			name = MapEditer;
+			path = MapEditer;
 			sourceTree = "<group>";
 		};
 		6330AB7514DB519A00448852 /* Supporting Files */ = {
@@ -1377,10 +1378,10 @@
 				63E525D81534E66500D2DA35 /* about.html */,
 				631FE88D1720C26000AEA107 /* OPEStrings.h */,
 				639953FD16113A200070CBAF /* about.css */,
-				6330AB7614DB519A00448852 /* MapEditor-Info.plist */,
+				6330AB7614DB519A00448852 /* MapEditer-Info.plist */,
 				6330AB7714DB519A00448852 /* InfoPlist.strings */,
 				6330AB7A14DB519A00448852 /* main.m */,
-				6330AB7C14DB519A00448852 /* MapEditor-Prefix.pch */,
+				6330AB7C14DB519A00448852 /* MapEditer-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1549,9 +1550,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6330AB6914DB519A00448852 /* MapEditor */ = {
+		6330AB6914DB519A00448852 /* MapEditer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6330AB8B14DB519A00448852 /* Build configuration list for PBXNativeTarget "MapEditor" */;
+			buildConfigurationList = 6330AB8B14DB519A00448852 /* Build configuration list for PBXNativeTarget "MapEditer" */;
 			buildPhases = (
 				0A229276F43E46468C2A4DA0 /* Check Pods Manifest.lock */,
 				6330AB6614DB519A00448852 /* Sources */,
@@ -1563,9 +1564,9 @@
 			);
 			dependencies = (
 			);
-			name = MapEditor;
-			productName = MapEditor;
-			productReference = 6330AB6A14DB519A00448852 /* MapEditor.app */;
+			name = MapEditer;
+			productName = MapEditer;
+			productReference = 6330AB6A14DB519A00448852 /* MapEditer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1581,7 +1582,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6330AB6414DB519A00448852 /* Build configuration list for PBXProject "MapEditor" */;
+			buildConfigurationList = 6330AB6414DB519A00448852 /* Build configuration list for PBXProject "MapEditer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1618,7 +1619,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6330AB6914DB519A00448852 /* MapEditor */,
+				6330AB6914DB519A00448852 /* MapEditer */,
 			);
 		};
 /* End PBXProject section */
@@ -2139,12 +2140,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MapEditor/MapEditor-Prefix.pch";
+				GCC_PREFIX_HEADER = "MapEditer/MapEditer-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "MapEditor/MapEditor-Info.plist";
+				INFOPLIST_FILE = "MapEditer/MapEditer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = MapEditor;
+				PRODUCT_NAME = MapEditer;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2162,12 +2163,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MapEditor/MapEditor-Prefix.pch";
+				GCC_PREFIX_HEADER = "MapEditer/MapEditer-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "MapEditor/MapEditor-Info.plist";
+				INFOPLIST_FILE = "MapEditer/MapEditer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = MapEditor;
+				PRODUCT_NAME = MapEditer;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
@@ -2180,7 +2181,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6330AB6414DB519A00448852 /* Build configuration list for PBXProject "MapEditor" */ = {
+		6330AB6414DB519A00448852 /* Build configuration list for PBXProject "MapEditer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6330AB8914DB519A00448852 /* Debug */,
@@ -2189,7 +2190,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6330AB8B14DB519A00448852 /* Build configuration list for PBXNativeTarget "MapEditor" */ = {
+		6330AB8B14DB519A00448852 /* Build configuration list for PBXNativeTarget "MapEditer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6330AB8C14DB519A00448852 /* Debug */,
