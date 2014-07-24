@@ -28,6 +28,6 @@
 #define osmConsumerSecret @"ubyAxf1nDdlnK9pAd6FbJdy2ddztAx8C8bztnbYz"
 
 #define bingMapsKey @"AgeGHIk64mZq4yRe-qtKjXbnZma-MvH9zfksJ72RQcHlwKelrcT131DOUCi2gZeH"
-#define mapboxMapID @"openstreetmap.map-4wvf9l0l"
+#define mapboxMapID @"openstreetmap.map-inh7ifmo"
 
 @end
