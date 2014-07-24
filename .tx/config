@@ -1,5 +1,6 @@
 [main]
 host = https://www.transifex.com
+lang_map = zh_CN:zh-Hans,zh_TW:zh-Hant
 
 [mapediter.localizablestrings]
 source_lang = en
