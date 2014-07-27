@@ -13,6 +13,7 @@
 
 #define UPLOADING_STRING NSLocalizedString(@"Uploading",@"Status message infomring user something is being uploaded")
 #define SAVING_STRING NSLocalizedString(@"Saving",@"Status message infomring user something is being saved")
+#define COMPLETE_STRING NSLocalizedString(@"Complete",@"Status message infomring user something complete")
 #define ERROR_STRING NSLocalizedString(@"Error",@"Status message infomring user there was an error")
 #define ZOOM_ERROR_STRING NSLocalizedString(@"Zoom in to load data",@"Status message infomring user they need to zoom in to load data")
 #define ZOOM_ALERT_STRING NSLocalizedString(@"You need to zoom in to add a new POI",@"Alert message for user to zoom in on map more to add new POI")

@@ -176,7 +176,7 @@
 {
     self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.png"]];
     HUD.mode = MBProgressHUDModeCustomView;
-    self.HUD.labelText = @"Complete";
+    self.HUD.labelText = COMPLETE_STRING;
     [self.HUD hide:YES afterDelay:1.0];
 }
 -(void)uploadFailed:(NSError *)error
