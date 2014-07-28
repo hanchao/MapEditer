@@ -24,6 +24,8 @@
 #import "OPEReferencePoi.h"
 #import "OPEOSMData.h"
 
+#import "OPETypeDetailViewController.h"
+
 @implementation OPETypeViewController
 
 @synthesize delegate;
@@ -122,7 +124,7 @@
     }
     OPEReferencePoi * cellPoi = [self.typeArray objectAtIndex:indexPath.row];
     cell.textLabel.text = cellPoi.name;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
     return cell;
 }
@@ -133,6 +135,15 @@
 {
     [self.delegate newType:[self.typeArray objectAtIndex:indexPath.row]];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
+    OPEReferencePoi * cellPoi = [self.typeArray objectAtIndex:indexPath.row];
+    OPETypeDetailViewController * view = [[OPETypeDetailViewController alloc] init];
+    view.referencePoi = cellPoi;
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 @end

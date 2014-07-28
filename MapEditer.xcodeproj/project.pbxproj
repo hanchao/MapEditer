@@ -387,6 +387,9 @@
 		D6D1972D195413F90094893B /* OPEDone+CancelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D19728195413F90094893B /* OPEDone+CancelViewController.m */; };
 		D6D1972E195413F90094893B /* OPEOpeningHoursEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D1972A195413F90094893B /* OPEOpeningHoursEditViewController.m */; };
 		D6D1972F195413F90094893B /* OPEOpeningHoursRuleEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D1972C195413F90094893B /* OPEOpeningHoursRuleEditViewController.m */; };
+		D6D66E2E1985FDD80090DD22 /* OPETypeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D66E2D1985FDD80090DD22 /* OPETypeDetailViewController.m */; };
+		D6D66E31198629FE0090DD22 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D6D66E2F198629FE0090DD22 /* placeholder.png */; };
+		D6D66E32198629FE0090DD22 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6D66E30198629FE0090DD22 /* placeholder@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -881,6 +884,10 @@
 		D6D1972A195413F90094893B /* OPEOpeningHoursEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEOpeningHoursEditViewController.m; sourceTree = "<group>"; };
 		D6D1972B195413F90094893B /* OPEOpeningHoursRuleEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEOpeningHoursRuleEditViewController.h; sourceTree = "<group>"; };
 		D6D1972C195413F90094893B /* OPEOpeningHoursRuleEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEOpeningHoursRuleEditViewController.m; sourceTree = "<group>"; };
+		D6D66E2C1985FDD80090DD22 /* OPETypeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPETypeDetailViewController.h; sourceTree = "<group>"; };
+		D6D66E2D1985FDD80090DD22 /* OPETypeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPETypeDetailViewController.m; sourceTree = "<group>"; };
+		D6D66E2F198629FE0090DD22 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		D6D66E30198629FE0090DD22 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		D6DB2E621980DAFE0094C0FF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D6DB2E631980DB060094C0FF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -959,6 +966,8 @@
 		6326680717164578002CD7E4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D6D66E2F198629FE0090DD22 /* placeholder.png */,
+				D6D66E30198629FE0090DD22 /* placeholder@2x.png */,
 				63021FAC17F3ADA900812BF6 /* note_open@2x.png */,
 				63021FAA17F3A8AC00812BF6 /* note_closed@2x.png */,
 				63021FA817F3974F00812BF6 /* 50-plus@2x.png */,
@@ -1367,6 +1376,8 @@
 				63E525D01534D90200D2DA35 /* OPECreditViewController.m */,
 				6330AB7514DB519A00448852 /* Supporting Files */,
 				632573DC152108C300478B78 /* MapSources */,
+				D6D66E2C1985FDD80090DD22 /* OPETypeDetailViewController.h */,
+				D6D66E2D1985FDD80090DD22 /* OPETypeDetailViewController.m */,
 			);
 			path = MapEditer;
 			sourceTree = "<group>";
@@ -1669,6 +1680,7 @@
 				6326693417164579002CD7E4 /* crescent.png in Resources */,
 				6326693517164579002CD7E4 /* currency.png in Resources */,
 				6326693617164579002CD7E4 /* davidstar.png in Resources */,
+				D6D66E31198629FE0090DD22 /* placeholder.png in Resources */,
 				6326693717164579002CD7E4 /* dentist.png in Resources */,
 				6326693817164579002CD7E4 /* doctor.png in Resources */,
 				6326693917164579002CD7E4 /* dog.png in Resources */,
@@ -1870,6 +1882,7 @@
 				632669F617164579002CD7E4 /* trailer@2x.png in Resources */,
 				6366D33717D6A47B002C9EF7 /* bubble_right@2x.png in Resources */,
 				632669F717164579002CD7E4 /* train@2x.png in Resources */,
+				D6D66E32198629FE0090DD22 /* placeholder@2x.png in Resources */,
 				632669F817164579002CD7E4 /* tram@2x.png in Resources */,
 				632669F917164579002CD7E4 /* trash@2x.png in Resources */,
 				632669FA17164579002CD7E4 /* tree@2x.png in Resources */,
@@ -1971,6 +1984,7 @@
 				63292E6D1593ED670010A11B /* OPESpecialCell2.m in Sources */,
 				63292E6E1593ED670010A11B /* OPETagValueList.m in Sources */,
 				63FCA4421643127D00A28470 /* OPEBingTileSource.m in Sources */,
+				D6D66E2E1985FDD80090DD22 /* OPETypeDetailViewController.m in Sources */,
 				D637EFCB19541F9000765358 /* OSMRelation.m in Sources */,
 				63FCA4511643363800A28470 /* OPEUtility.m in Sources */,
 				638445EA1665BBEA004570A5 /* OPEOpenMapQuestAerialTileSource.m in Sources */,
