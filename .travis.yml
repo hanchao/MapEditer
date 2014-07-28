@@ -1,6 +1,6 @@
 language: objective-c
-xcode_workspace: MapEditor.xcworkspace
-xcode_scheme: MapEditor
+xcode_workspace: MapEditer.xcworkspace
+xcode_scheme: MapEditer
 xcode_sdk: iphonesimulator
 
 before_install:
