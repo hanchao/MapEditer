@@ -104,4 +104,6 @@
 
 #define NO_DETAIL_INFO_STRING NSLocalizedString(@"No detail info",@"tip no detail info")
 
+#define PARSING_STRING NSLocalizedString(@"Parsing",@"Parsing osm data")
+
 @end

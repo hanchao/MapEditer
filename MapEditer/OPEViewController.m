@@ -495,7 +495,7 @@
         //self.parsingMessageView.textLabel.text = [NSString stringWithFormat:@"Finding %@ ...",elementTypeString];
         [self.view addSubview:self.parsingMessageView];
     }
-    self.parsingMessageView.textLabel.text = [NSString stringWithFormat:@"%@ %@ ...",@"Parsing",elementTypeString];
+    self.parsingMessageView.textLabel.text = [NSString stringWithFormat:@"%@ %@ ...",PARSING_STRING,elementTypeString];
     
     
     
