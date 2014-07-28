@@ -290,7 +290,7 @@
     {
         NSInteger index = section-2;
         OPEReferenceOptional * tempOptional = [[self.optionalSectionsArray objectAtIndex:index] lastObject];
-        return tempOptional.sectionName;
+        return tempOptional.translateSectionName;
     }
     
     return @"";
@@ -425,7 +425,7 @@
                 if (specialCell == nil) {
                     specialCell = [[OPESpecialCell2 alloc] initWithTextWidth:optionalTagWidth reuseIdentifier:CellIdentifierSpecial2];
                 }
-                specialCell.leftLabel.text = managedOptionalTag.displayName;
+                specialCell.leftLabel.text = managedOptionalTag.translateDisplayName;
                 specialCell.rightLabel.text = displayValueForOptional;
                 return specialCell;
             }
@@ -436,7 +436,7 @@
                 if (aCell == nil) {
                     aCell = [[OPEBinaryCell alloc] initWithArray:[managedOptionalTag.optionalTags allObjects] reuseIdentifier:CellIdentifierSpecialBinary withTextWidth:optionalTagWidth];
                 }
-                aCell.leftLabel.text = managedOptionalTag.displayName;
+                aCell.leftLabel.text = managedOptionalTag.translateDisplayName;
                 [aCell setupBinaryControl:[managedOptionalTag.optionalTags allObjects]];
                 //aCell.controlArray = [[cellDictionary objectForKey:@"values"] allKeys];
                 

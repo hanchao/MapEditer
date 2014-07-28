@@ -22,4 +22,7 @@
 -(NSString *)sqliteInsertString;
 
 -(NSString *)sqliteOptionalTagsInsertString;
+
+-(NSString *)translateDisplayName;
+-(NSString *)translateSectionName;
 @end

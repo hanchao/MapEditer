@@ -2,7 +2,7 @@
 #import "OPEReferenceOsmTag.h"
 #import "FMResultSet.h"
 #import "FMDatabase.h"
-
+#import "OPETranslate.h"
 
 @interface OPEReferenceOptional ()
 
@@ -169,6 +169,16 @@
 -(NSString *)description
 {
     return self.name;
+}
+
+-(NSString *)translateDisplayName
+{
+    return [OPETranslate translateString:self.displayName];
+}
+
+-(NSString *)translateSectionName
+{
+    return [OPETranslate translateString:self.sectionName];
 }
 
 @end

@@ -102,6 +102,6 @@
 #define ADDRESS_EXAMPLE_STRING NSLocalizedString(@"House or building number \nExample: 1600, 10, 221B ...",@"Explain addr:housenumber. Use local customs that someone would be familiar with")
 #define COUNTRY_PHONE_CODE_STRING NSLocalizedString(@"US and Canada country code is 1",@"Explain phone country codes. Use local number that makes sense for language")
 
-
+#define NO_DETAIL_INFO_STRING NSLocalizedString(@"No detail info",@"tip no detail info")
 
 @end

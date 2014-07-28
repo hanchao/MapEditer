@@ -9,6 +9,7 @@
 #import "OPETypeDetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AFNetworking.h"
+#import "OPEStrings.h"
 
 @interface OPETypeDetailViewController ()
 
@@ -58,6 +59,8 @@
             NSLog(@"Success %@",taginfo[@"lang"]);
             if ([lang isEqualToString:@"en"]) {
                 NSString *description = taginfo[@"description"];
+                if(description.length == 0)
+                    description = NO_DETAIL_INFO_STRING;
                 
                 CGSize labelSize = [description sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]
                                    constrainedToSize:CGSizeMake(280, 100)
@@ -117,6 +120,20 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure");
+        
+        NSString *description = NO_DETAIL_INFO_STRING;
+        
+        CGSize labelSize = [description sizeWithFont:[UIFont boldSystemFontOfSize:17.0f]
+                                   constrainedToSize:CGSizeMake(280, 100)
+                                       lineBreakMode:UILineBreakModeCharacterWrap];   // str是要显示的字符串
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelSize.width, labelSize.height)];
+        label.text = description;
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:17.0f];
+        label.numberOfLines = 0;// 不可少Label属性之一
+        label.lineBreakMode = UILineBreakModeCharacterWrap;// 不可少Label属性之二
+        [scrolView addSubview:label];
+        
         
     }];
     [requestOperation start];
