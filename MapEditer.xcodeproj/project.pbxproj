@@ -368,7 +368,6 @@
 		63F63D5C17684D340084E703 /* OPEWikipediaWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F63D5B17684D340084E703 /* OPEWikipediaWebViewController.m */; };
 		63FBA5AE171E08E70098A2F3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FBA5AD171E08E70098A2F3 /* libiconv.dylib */; };
 		63FBA5B0171E08F50098A2F3 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FBA5AF171E08F40098A2F3 /* libstdc++.dylib */; };
-		63FCA4421643127D00A28470 /* OPEBingTileSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCA4411643127D00A28470 /* OPEBingTileSource.m */; };
 		63FCA4511643363800A28470 /* OPEUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCA4501643363700A28470 /* OPEUtility.m */; };
 		63FD2DAD172F329A0094B969 /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 63FD2DAC172F329A0094B969 /* Tags.json */; };
 		D637EFC019541F9000765358 /* optimizeDb.sql in Resources */ = {isa = PBXBuildFile; fileRef = D637EFA119541F9000765358 /* optimizeDb.sql */; };
@@ -850,8 +849,6 @@
 		63F63D5B17684D340084E703 /* OPEWikipediaWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEWikipediaWebViewController.m; sourceTree = "<group>"; };
 		63FBA5AD171E08E70098A2F3 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		63FBA5AF171E08F40098A2F3 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		63FCA4401643127D00A28470 /* OPEBingTileSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEBingTileSource.h; sourceTree = "<group>"; };
-		63FCA4411643127D00A28470 /* OPEBingTileSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEBingTileSource.m; sourceTree = "<group>"; };
 		63FCA44F1643363700A28470 /* OPEUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEUtility.h; sourceTree = "<group>"; };
 		63FCA4501643363700A28470 /* OPEUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEUtility.m; sourceTree = "<group>"; };
 		63FD2DAC172F329A0094B969 /* Tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Tags.json; sourceTree = "<group>"; };
@@ -940,8 +937,6 @@
 		632573DC152108C300478B78 /* MapSources */ = {
 			isa = PBXGroup;
 			children = (
-				63FCA4401643127D00A28470 /* OPEBingTileSource.h */,
-				63FCA4411643127D00A28470 /* OPEBingTileSource.m */,
 				638445E81665BBEA004570A5 /* OPEOpenMapQuestAerialTileSource.h */,
 				638445E91665BBEA004570A5 /* OPEOpenMapQuestAerialTileSource.m */,
 				63B1B7D916698FAA006CFD68 /* OPEOpenStreetMapSource.h */,
@@ -1983,7 +1978,6 @@
 				6309678C18E37A9B00217DCB /* OPENotesDatabase.m in Sources */,
 				63292E6D1593ED670010A11B /* OPESpecialCell2.m in Sources */,
 				63292E6E1593ED670010A11B /* OPETagValueList.m in Sources */,
-				63FCA4421643127D00A28470 /* OPEBingTileSource.m in Sources */,
 				D6D66E2E1985FDD80090DD22 /* OPETypeDetailViewController.m in Sources */,
 				D637EFCB19541F9000765358 /* OSMRelation.m in Sources */,
 				63FCA4511643363800A28470 /* OPEUtility.m in Sources */,

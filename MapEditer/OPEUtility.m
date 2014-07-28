@@ -15,7 +15,7 @@
 
 #import "OPEOpenMapQuestAerialTileSource.h"
 #import "OPEOpenStreetMapSource.h"
-#import "OPEBingTileSource.h"
+#import "RMBingSource.h"
 #import "RMMapboxSource.h"
 
 @implementation OPEUtility
@@ -152,7 +152,7 @@
         
     }
     if(num == 0 && [bingMapsKey length]){
-        return [[OPEBingTileSource alloc] initWithMapsKey:bingMapsKey];
+        return [[RMBingSource alloc] initWithMapsKey:bingMapsKey forImagerySet:RMBingImagerySetAerial];
     }
     else if (num == 1) {
         return [[OPEOpenMapQuestAerialTileSource alloc] init];

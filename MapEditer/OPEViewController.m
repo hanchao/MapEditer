@@ -27,7 +27,6 @@
 #import "RMUserLocation.h"
 #import "RMAnnotation.h"
 #import "RMShape.h"
-#import "OPEBingTileSource.h"
 #import "OPEAPIConstants.h"
 #import "OPEUtility.h"
 #import "OPEStrings.h"
