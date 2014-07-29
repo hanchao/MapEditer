@@ -137,6 +137,7 @@
     [self.databaseQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         
         [nodes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            //sleep(1);
             OSMNode * node = obj;
             BOOL shouldUpdate = YES;
             BOOL alreadyExists = NO;
