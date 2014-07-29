@@ -30,4 +30,6 @@
 #define bingMapsKey @"AgeGHIk64mZq4yRe-qtKjXbnZma-MvH9zfksJ72RQcHlwKelrcT131DOUCi2gZeH"
 #define mapboxMapID @"openstreetmap.map-inh7ifmo"
 
+#define email @"hanchao0123@hotmail.com"
+
 @end

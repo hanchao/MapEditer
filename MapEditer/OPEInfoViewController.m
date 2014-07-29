@@ -30,6 +30,7 @@
 
 #import "GTMOAuthViewControllerTouch.h"
 
+#import <MessageUI/MFMailComposeViewController.h>
 
 @implementation OPEInfoViewController
 
@@ -242,7 +243,14 @@
     }
     else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-
+            MFMailComposeViewController *controller = [MFMailComposeViewController new];
+            controller.mailComposeDelegate = self;
+            
+            NSArray *toRecipients = [NSArray arrayWithObject:email];
+            [controller setToRecipients:toRecipients];
+            [controller setSubject:FEEDBACK_STRING];
+            
+            [self presentViewController:controller animated:YES completion:nil];
         }
         else
         {
@@ -300,6 +308,13 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
