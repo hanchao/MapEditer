@@ -154,10 +154,10 @@
     
     // Configure the view for the selected state
 }
-
--(void) prepareForReuse
-{
-    [self setNeedsUpdateConstraints];
-}
+//
+//-(void) prepareForReuse
+//{
+//    [self setNeedsUpdateConstraints];
+//}
 
 @end

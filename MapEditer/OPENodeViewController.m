@@ -498,7 +498,7 @@
         if(indexPath.row == 0 || !self.managedOsmElement.type)
         {
             OPECategoryViewController * viewer = [[OPECategoryViewController alloc] init];
-            viewer.title = @"Category";
+            viewer.title = CATEGORY_STRING;
             [viewer setDelegate:self];
             
             [self.navigationController pushViewController:viewer animated:YES];
@@ -516,7 +516,7 @@
         
         OPETagEditViewController * viewController = [OPETagEditViewController viewControllerWithOsmKey:managedOptionalTag.osmKey currentOsmValue:[self.managedOsmElement valueForOsmKey:managedOptionalTag.osmKey] andType:managedOptionalTag.type withCompletionBlock:self.newTagBlock];
         //viewController = [OPETagEditViewController viewControllerWithOsmKey:managedOptionalTag.osmKey andType:managedOptionalTag.type delegate:self];
-        viewController.title = managedOptionalTag.displayName;
+        viewController.title = managedOptionalTag.translateDisplayName;
         viewController.referenceOptional = managedOptionalTag;
         viewController.element = self.managedOsmElement;
         //viewController.currentOsmValue =
