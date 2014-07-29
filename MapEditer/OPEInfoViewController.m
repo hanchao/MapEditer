@@ -126,7 +126,7 @@
     if (section == 0) {
         return 4;
     }
-    else if (section == 3)
+    else if (section == 2)
     {
         return 2;
     }
@@ -268,7 +268,7 @@
 -(void)infoButtonPressed:(id)sender
 {
     OPECreditViewController * view = [[OPECreditViewController alloc] init];
-    view.title = @"About";
+    view.title = ABOUT_STRING;
     [self.navigationController pushViewController:view animated:YES];
 }
 -(void)toggleSwitch:(id)sender

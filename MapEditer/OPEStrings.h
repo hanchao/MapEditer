@@ -33,7 +33,7 @@
 #define LOGIN_STRING NSLocalizedString(@"Login to OpenStreetMap",@"Login button label")
 #define LOGOUT_STRING NSLocalizedString(@"Logout of OpenStreetMap",@"Logout button label")
 #define FEEDBACK_STRING NSLocalizedString(@"Feedback",@"label for feedback button")
-#define ABOUT_STRING NSLocalizedString(@"About POI+",@"label for about button")
+#define ABOUT_STRING NSLocalizedString(@"About",@"label for about button")
 #define TILE_SOURCE_STRING NSLocalizedString(@"Tile Source",@"Section label for tile source setting")
 
 #define REMOVE_STRING NSLocalizedString(@"Remove",@"Button label to remove tag")
