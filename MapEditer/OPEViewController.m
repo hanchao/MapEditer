@@ -134,13 +134,6 @@
     
     [locationManager startUpdatingLocation];
     
-    CLLocationCoordinate2D initLocation;
-    
-    initLocation.latitude  = 37.871667;
-    initLocation.longitude =  -122.272778;
-    
-    initLocation = [[locationManager location] coordinate];
-    
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
         self.mapView.contentScaleFactor = 2.0;
     }
