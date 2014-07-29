@@ -52,9 +52,11 @@ NSString *const deleteMethod = @"DELETE";
     if(!_auth)
     {
         _auth = [OPEOSMAPIManager osmAuth];
-        [GTMOAuthViewControllerTouch authorizeFromKeychainForName:@"MapEditor" authentication:_auth];
-        [_auth canAuthorize];
     }
+    
+    [GTMOAuthViewControllerTouch authorizeFromKeychainForName:@"MapEditor" authentication:_auth];
+    [_auth canAuthorize];
+    
     return _auth;
     
 }
