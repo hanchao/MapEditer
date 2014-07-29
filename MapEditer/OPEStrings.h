@@ -106,4 +106,10 @@
 
 #define PARSING_STRING NSLocalizedString(@"Parsing",@"Parsing osm data")
 
+#define OAUTH_ERROR_STRING NSLocalizedString(@"OAuth Error",@"OAuth Error")
+
+#define LOGIN_ERROR_STRING NSLocalizedString(@"You need to login to OpenStreetMap",@"You need to login to OpenStreetMap")
+
+#define LOGIN_STRING NSLocalizedString(@"Login",@"Login")
+
 @end

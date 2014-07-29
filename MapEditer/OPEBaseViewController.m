@@ -53,11 +53,11 @@
     {
         [HUD hide:YES];
     }
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"OAuth Error"
-                                                      message:@"You need to login to OpenStreetMap"
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:OAUTH_ERROR_STRING
+                                                      message:LOGIN_ERROR_STRING
                                                      delegate:self
-                                            cancelButtonTitle:@"Canel"
-                                            otherButtonTitles:@"Login", nil];
+                                            cancelButtonTitle:CANCEL_STRING
+                                            otherButtonTitles:LOGIN_STRING, nil];
     message.tag = authErrorTag;
     [message show];
 }
