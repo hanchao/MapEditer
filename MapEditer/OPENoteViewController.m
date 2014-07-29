@@ -72,7 +72,7 @@
     
     UIButton * commentButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     commentButton.frame = CGRectMake(commentInputBar.frame.size.width - 70, 5, 70, kChatBarHeight1-10);
-    [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+    [commentButton setTitle:COMMENT_STRING forState:UIControlStateNormal];
     [commentButton addTarget:self action:@selector(commentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     commentButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [commentInputBar addSubview:commentButton];
@@ -181,20 +181,6 @@
 {
     UITableView * tableView = (UITableView *)[self.view viewWithTag:kTableViewTag];
     [tableView reloadData];
-    
-    // move last row
-    NSUInteger sectionCount = [tableView numberOfSections];
-    if (sectionCount) {
-        
-        NSUInteger rowCount = [tableView numberOfRowsInSection:sectionCount-1];
-        if (rowCount) {
-            
-            NSUInteger indexs[2] = {sectionCount-1, rowCount - 1};
-            NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:indexs length:2];
-            [tableView scrollToRowAtIndexPath:indexPath
-                                  atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        }
-    }
 }
 
 -(void)doneButtonPressed:(id)sender
@@ -224,16 +210,16 @@
         }];
     }else{
         if (self.note.isOpen){
-            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Comment", nil];
+            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:COMMENT_STRING, nil];
             
-            [actionSheet addButtonWithTitle:@"Comment & Close"];
-            [actionSheet addButtonWithTitle:@"Cancel"];
+            [actionSheet addButtonWithTitle:COMMENT_CLOSE_STRING];
+            [actionSheet addButtonWithTitle:CANCEL_STRING];
             
             actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
             [actionSheet showInView:self.view];
         }else{
-            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Comment & Reopen", nil];
-            [actionSheet addButtonWithTitle:@"Cancel"];
+            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:COMMENT_REOPEN_STRING, nil];
+            [actionSheet addButtonWithTitle:CANCEL_STRING];
             actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
             [actionSheet showInView:self.view];
         }
@@ -273,6 +259,9 @@
             } failure:^(NSError *error) {
                 DDLogError(@"error: %@",error);
             }];
+        }else{
+            [self reloadData];
+            [self scrollToBottomAnimated:YES];
         }
     }else{
         if (buttonIndex == 0) {
@@ -285,6 +274,9 @@
             } failure:^(NSError *error) {
                 DDLogError(@"error: %@",error);
             }];
+        }else{
+            [self reloadData];
+            [self scrollToBottomAnimated:YES];
         }
     }
 }

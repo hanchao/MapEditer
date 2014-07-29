@@ -112,4 +112,11 @@
 
 #define LOGIN_STRING NSLocalizedString(@"Login",@"Login")
 
+#define COMMENT_STRING NSLocalizedString(@"Comment",@"Comment note")
+
+#define COMMENT_CLOSE_STRING NSLocalizedString(@"Comment & Close",@"Comment and close note")
+
+#define COMMENT_REOPEN_STRING NSLocalizedString(@"Comment & Reopen",@"Comment and reopen note")
+
+
 @end

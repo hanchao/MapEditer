@@ -10,6 +10,7 @@
 #import "OPEUtility.h"
 #import "OSMComment.h"
 #import "OPEOSMUser.h"
+#import "OPETranslate.h"
 
 #define MESSAGE_TEXT_WIDTH_MAX 240
 #define EDGE_MARGIN 20
@@ -70,7 +71,7 @@
     
     
     self.commentTextLabel.text = self.comment.text;
-    self.commentActionLabel.text = self.comment.action;
+    self.commentActionLabel.text = [OPETranslate translateString:self.comment.action];
     self.commentDetailLabel.text = [NSString stringWithFormat:@"%@ %@",self.comment.username,[OPEUtility displayFormatDate:self.comment.date]];
     CGSize messageTextLabelSize = [self.commentTextLabel sizeThatFits:CGSizeMake(MESSAGE_TEXT_WIDTH_MAX, CGFLOAT_MAX)];
     
