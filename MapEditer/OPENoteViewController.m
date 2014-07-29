@@ -120,6 +120,7 @@
 {
     [super viewDidDisappear:animated];
     [OPENotesDatabase saveNote:self.note completion:nil];
+    [self.view removeKeyboardControl];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
