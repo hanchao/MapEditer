@@ -14,7 +14,7 @@
 #import "OPEOSMAPIManager.h"
 #import "OPEOSMData.h"
 #import "OPENotesDatabase.h"
-
+#import "OPEStrings.h"
 #import "OPELog.h"
 
 #define kChatBarHeight1                      40
@@ -32,10 +32,12 @@
     if(self = [self init])
     {
         self.note = newNote;
-        [OPENotesDatabase fetchNoteWithID:self.note.id completion:^(OSMNote *note) {
-            self.note = note;
-            [self reloadData];
-        }];
+        if (self.note.id > 0) {
+            [OPENotesDatabase fetchNoteWithID:self.note.id completion:^(OSMNote *note) {
+                self.note = note;
+                [self reloadData];
+            }];
+        }
     }
     return self;
 }
@@ -47,7 +49,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.navigationController setToolbarHidden:YES animated:YES];
     
-    self.title = @"Note";
+    self.title = NOTE_STRING;
     
     CGRect tableViewRect = self.view.bounds;
     tableViewRect.size.height = tableViewRect.size.height - kChatBarHeight1;
@@ -73,14 +75,7 @@
     [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
     [commentButton addTarget:self action:@selector(commentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     commentButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(commentButtonLongPressed:)];
-    [commentButton addGestureRecognizer:longPress];
-    
     [commentInputBar addSubview:commentButton];
-    
-    if (!self.note.isOpen) {
-        commentButton.enabled = NO;
-    }
     
     
     UITextView * textView = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, commentInputBar.frame.size.width-10-commentButton.frame.size.width, kChatBarHeight1 -10)];
@@ -112,7 +107,7 @@
     }];
     
     UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
-    [self.navigationItem setRightBarButtonItem:cancelButtonItem];
+    [self.navigationItem setLeftBarButtonItem:cancelButtonItem];
     
 }
 
@@ -186,6 +181,20 @@
 {
     UITableView * tableView = (UITableView *)[self.view viewWithTag:kTableViewTag];
     [tableView reloadData];
+    
+    // move last row
+    NSUInteger sectionCount = [tableView numberOfSections];
+    if (sectionCount) {
+        
+        NSUInteger rowCount = [tableView numberOfRowsInSection:sectionCount-1];
+        if (rowCount) {
+            
+            NSUInteger indexs[2] = {sectionCount-1, rowCount - 1};
+            NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:indexs length:2];
+            [tableView scrollToRowAtIndexPath:indexPath
+                                  atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    }
 }
 
 -(void)doneButtonPressed:(id)sender
@@ -195,7 +204,9 @@
 
 -(void)commentButtonPressed:(id)sender
 {
-    if ([self textViewHasTextLength]) {
+    if (self.note.id == 0)
+    {
+        //new note
         void (^succesBlock)(id) =  ^(id JSON) {
             DDLogInfo(@"return data: %@",JSON);
             [self clearTextViewText];
@@ -203,71 +214,79 @@
             [self reloadData];
             [self scrollToBottomAnimated:YES];
         };
+        
         OSMComment * comment = [[OSMComment alloc] init];
         comment.text = [self textViewStrippedText];
         [self.note addComment:comment];
-        if (self.note.id > 0) {
+        
+        [self.osmApiManager createNewNote:self.note success:succesBlock failure:^(NSError *error) {
+            DDLogError(@"error: %@",error);
+        }];
+    }else{
+        if (self.note.isOpen){
+            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Comment", nil];
+            
+            [actionSheet addButtonWithTitle:@"Comment & Close"];
+            [actionSheet addButtonWithTitle:@"Cancel"];
+            
+            actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
+            [actionSheet showInView:self.view];
+        }else{
+            UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Comment & Reopen", nil];
+            [actionSheet addButtonWithTitle:@"Cancel"];
+            actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
+            [actionSheet showInView:self.view];
+        }
+    }
+    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (self.note.isOpen){
+        if (buttonIndex == 0) {
+            // New Comment
+            void (^succesBlock)(id) =  ^(id JSON) {
+                DDLogInfo(@"return data: %@",JSON);
+                [self clearTextViewText];
+                self.note = [self.osmData createNoteWithJSONDictionary:JSON];
+                [self reloadData];
+                [self scrollToBottomAnimated:YES];
+            };
+            
+            OSMComment * comment = [[OSMComment alloc] init];
+            comment.text = [self textViewStrippedText];
+            [self.note addComment:comment];
             
             [self.osmApiManager createNewComment:comment withNote:self.note success:succesBlock failure:^(NSError *error) {
                 DDLogError(@"error: %@",error);
             }];
         }
-        else{
-            //new note
-            
-            [self.osmApiManager createNewNote:self.note success:succesBlock failure:^(NSError *error) {
+        else if (buttonIndex == 1 && actionSheet.numberOfButtons > 2)
+        {
+            //comment & close
+            [self.osmApiManager closeNote:self.note withComment:[self textViewStrippedText] success:^(id JSON) {
+                self.note = [self.osmData createNoteWithJSONDictionary:JSON];
+                [OPENotesDatabase saveNote:self.note completion:nil];
+                [self reloadData];
+                [self scrollToBottomAnimated:YES];
+            } failure:^(NSError *error) {
                 DDLogError(@"error: %@",error);
             }];
-            
-            
         }
-        
-        
-    }
-    
-}
-
--(void)commentButtonLongPressed:(UILongPressGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan)
-    {
-        UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Resolve", nil];
-        if ([self textViewHasTextLength]) {
-            [actionSheet addButtonWithTitle:@"Comment & Resolve"];
+    }else{
+        if (buttonIndex == 0) {
+            //comment & reopen
+            [self.osmApiManager reopenNote:self.note withComment:[self textViewStrippedText] success:^(id JSON) {
+                self.note = [self.osmData createNoteWithJSONDictionary:JSON];
+                [OPENotesDatabase saveNote:self.note completion:nil];
+                [self reloadData];
+                [self scrollToBottomAnimated:YES];
+            } failure:^(NSError *error) {
+                DDLogError(@"error: %@",error);
+            }];
         }
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
-        [actionSheet showInView:self.view];
     }
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        //Resolve
-        [self.osmApiManager closeNote:self.note withComment:nil success:^(id JSON) {
-            self.note = [self.osmData createNoteWithJSONDictionary:JSON];
-            [OPENotesDatabase saveNote:self.note completion:nil];
-            [self reloadData];
-            [self scrollToBottomAnimated:YES];
-        } failure:^(NSError *error) {
-            DDLogError(@"error: %@",error);
-        }];
-    }
-    else if (buttonIndex == 1 && actionSheet.numberOfButtons > 2)
-    {
-        //comment & resolve
-        
-        [self.osmApiManager closeNote:self.note withComment:[self textViewStrippedText] success:^(id JSON) {
-            self.note = [self.osmData createNoteWithJSONDictionary:JSON];
-            [OPENotesDatabase saveNote:self.note completion:nil];
-            [self reloadData];
-            [self scrollToBottomAnimated:YES];
-        } failure:^(NSError *error) {
-            DDLogError(@"error: %@",error);
-        }];
-    }
-    //[actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 -(OPEOSMAPIManager *)osmApiManager

@@ -563,11 +563,17 @@ withChangesetComment:(NSString *)changesetComment
 }
 
 -(void)reopenNote:(OSMNote *)note
+      withComment:(NSString *)comment
           success:(void (^)(NSData * response))success
           failure:(void (^)(NSError *error))failure
 {
+    NSDictionary * parameters = nil;
+    if ([comment length]) {
+        parameters = @{@"text":comment};
+    }
+    
     NSString * path = [NSString stringWithFormat:@"notes/%lld/reopen.json",note.id];
-    AFHTTPRequestOperation * requestOperation = [self.httpClient POST:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation * requestOperation = [self.httpClient POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(responseObject);
         }

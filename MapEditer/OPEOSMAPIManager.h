@@ -61,6 +61,7 @@ withChangesetComment:(NSString *)changesetComment
          failure:(void (^)(NSError *error))failure;
 
 -(void)reopenNote:(OSMNote *)note
+      withComment:(NSString *)comment
          success:(void (^)(NSData * response))success
          failure:(void (^)(NSError *error))failure;
 
