@@ -10,7 +10,7 @@
 
 @property (nonatomic, strong) OPEReferencePoi *type;
 @property (nonatomic, strong) OSMElement * element;
-@property (nonatomic, strong) NSString * action;
+@property (nonatomic) OPEActionType action;
 @property (nonatomic,readonly) NSString * idKey;
 @property (nonatomic,readonly) NSString * idKeyPrefix;
 @property (nonatomic) BOOL isVisible;

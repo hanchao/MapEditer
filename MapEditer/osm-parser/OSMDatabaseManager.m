@@ -195,7 +195,7 @@
         NSString * columnID = [NSString stringWithFormat:@"%@_id",[element.tableName substringToIndex:[element.tableName length] - 1]];
         for (NSString * key in element.tags)
         {
-            NSString *sqlString = [NSString stringWithFormat:@"insert or replace into %@(%@,key,value) values(%lld,\'%@\',\'%@\')",element.tableName,columnID,element.elementID,key,element.tags[key]];
+            NSString *sqlString = [NSString stringWithFormat:@"insert or replace into %@(%@,key,value) values(%lld,\'%@\',\'%@\')",element.tagsTableName,columnID,element.elementID,key,element.tags[key]];
             [sqlStringArray addObject:sqlString];
         }
     }
@@ -218,7 +218,7 @@
             [node addDateWithString:[result stringForColumn:@"timestamp"]];
             node.latitude = [result doubleForColumn:@"latitude"];
             node.longitude = [result doubleForColumn:@"longitude"];
-            node.action = [result stringForColumn:@"action"];
+            node.action = [result intForColumn:@"action"];
         }
         [result close];
     }];
@@ -246,7 +246,7 @@
             [node addDateWithString:[result stringForColumn:@"timestamp"]];
             node.latitude = [result doubleForColumn:@"latitude"];
             node.longitude = [result doubleForColumn:@"longitude"];
-            node.action = [result stringForColumn:@"action"];
+            node.action = [result intForColumn:@"action"];
             
             [nodes addObject:node];
         }

@@ -146,38 +146,11 @@
     
     
     if ([managedOsmElement isKindOfClass:[OPEOsmNode class]] && ![self.osmData hasParentElement:self.managedOsmElement]) {
-        if (self.managedOsmElement.element.elementID > 0) {
-            /*
-            deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [deleteButton setTitle:DELETE_STRING forState:UIControlStateNormal];
-            [self.deleteButton setBackgroundImage:[[UIImage imageNamed:@"iphone_delete_button.png"]
-                                                   stretchableImageWithLeftCapWidth:8.0f
-                                                   topCapHeight:0.0f]
-                                         forState:UIControlStateNormal];
-            
-            [self.deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            self.deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-            self.deleteButton.titleLabel.shadowColor = [UIColor lightGrayColor];
-            self.deleteButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
-            //self.deleteButton.frame = CGRectMake(0, 0, 300, 44);
-            [self.deleteButton addTarget:self action:@selector(deleteButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            
-            
-            UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, nodeInfoTableView.frame.size.width, 50)];
-            self.deleteButton.frame = CGRectMake(10, 0, nodeInfoTableView.frame.size.width-20, 46);
-            footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            [footerView addSubview:deleteButton];
-            
-            
-            self.nodeInfoTableView.tableFooterView = footerView;
-            */
+        if (self.managedOsmElement.element.elementID > 0 ||
+            self.managedOsmElement.action == OPEActionTypeModify) {
             showDeleteButton = YES;
         }
         showMoveButton = YES;
-        
-        //self.nodeInfoTableView.tableFooterView.frame = CGRectMake(0, 0, 300, 50);
-        //[nodeInfoTableView setContentOffset:CGPointMake(0, nodeInfoTableView.contentSize.height-50) animated:YES];
     }
     
     
@@ -599,31 +572,36 @@
 
 - (void) saveButtonPressed
 {
-    self.managedOsmElement.action = kActionTypeModify;
+    self.managedOsmElement.action = OPEActionTypeModify;
     [self.osmData saveDate:[NSDate date] forType:self.managedOsmElement.type];
     
-    if (!self.apiManager.auth.canAuthorize)
+    if ([self elementModified] || (self.managedOsmElement.elementID < 0 && [self.managedOsmElement.element.tags count]))
     {
-        [self showAuthError];
-    }
-    else if ([self elementModified] || (self.managedOsmElement.elementID < 0 && [self.managedOsmElement.element.tags count]))
-    {
-        [self startSave];
+        NSMutableArray *updatedElements = [NSMutableArray new];
+        [updatedElements addObject:self.managedOsmElement];
         
-        [self.apiManager uploadElement:self.managedOsmElement withChangesetComment:[self.osmData changesetCommentfor:self.managedOsmElement] openedChangeset:^(int64_t changesetID) {
-            [self didOpenChangeset:changesetID withMessage:nil];
-        } updatedElements:^(NSArray *updatedElements) {
-            [self.osmData updateElements:updatedElements];
-            [delegate updateAnnotationForOsmElements:updatedElements];
-        } closedChangeSet:^(int64_t changesetID) {
-            
-            [super didCloseChangeset:changesetID ];
-            [self checkSaveButton];
-            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissViewController) userInfo:nil repeats:nil];
-        } failure:^(NSError *error) {
-            [super uploadFailed:error];
-            [self checkSaveButton];
-        }];
+        [self.osmData updateElements:updatedElements];
+        [delegate updateAnnotationForOsmElements:updatedElements];
+        
+        [self checkSaveButton];
+        
+        [self dismissViewController];
+//        [self startSave];
+//        
+//        [self.apiManager uploadElement:self.managedOsmElement withChangesetComment:[self.osmData changesetCommentfor:self.managedOsmElement] openedChangeset:^(int64_t changesetID) {
+//            [self didOpenChangeset:changesetID withMessage:nil];
+//        } updatedElements:^(NSArray *updatedElements) {
+//            [self.osmData updateElements:updatedElements];
+//            [delegate updateAnnotationForOsmElements:updatedElements];
+//        } closedChangeSet:^(int64_t changesetID) {
+//            
+//            [super didCloseChangeset:changesetID ];
+//            [self checkSaveButton];
+//            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissViewController) userInfo:nil repeats:nil];
+//        } failure:^(NSError *error) {
+//            [super uploadFailed:error];
+//            [self checkSaveButton];
+//        }];
         
     }
     else {
@@ -657,7 +635,7 @@
     if (alertView.tag == 1) {
         if(buttonIndex != alertView.cancelButtonIndex)
         {
-            self.managedOsmElement.action = kActionTypeDelete;
+            self.managedOsmElement.action = OPEActionTypeDelete;
             
             DDLogInfo(@"Button YES was selected.");
             
@@ -666,31 +644,15 @@
             [self.HUD setLabelText:[NSString stringWithFormat:@"%@ ...",DELETING_STRING]];
             [self.HUD show:YES];
             
-            [self.apiManager uploadElement:self.managedOsmElement withChangesetComment:[self.osmData changesetCommentfor:self.managedOsmElement] openedChangeset:^(int64_t changesetID) {
-                [self didOpenChangeset:changesetID withMessage:nil];
-            } updatedElements:^(NSArray *updatedElements) {
-                [self.osmData updateElements:updatedElements];
-                [delegate updateAnnotationForOsmElements:updatedElements];
-            } closedChangeSet:^(int64_t changesetID) {
-                [super didCloseChangeset:changesetID ];
-                [self checkSaveButton];
-                [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissViewController) userInfo:nil repeats:nil];
-            } failure:^(NSError *error) {
-                [super uploadFailed:error];
-                [self checkSaveButton];
-            }];
+            NSMutableArray *managedOsmElements = [NSMutableArray new];
+            [managedOsmElements addObject:managedOsmElement];
             
-            /*
-            if ([self.managedOsmElement isKindOfClass:[OPEOsmNode class]]) {
-                dispatch_queue_t q = dispatch_queue_create("queue", NULL);
-                dispatch_async(q, ^{
-                    
-                    
-                    [self.osmData deleteElement:self.managedOsmElement];
-                });
-                //dispatch_release(q);
-            }
-             */
+            [self.osmData updateElements:managedOsmElements];
+            [delegate updateAnnotationForOsmElements:managedOsmElements];
+
+            
+            [self dismissViewController];
+            
         }
         else
         {

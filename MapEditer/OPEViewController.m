@@ -81,6 +81,7 @@
     
     UIBarButtonItem * locationBarButton;
     UIBarButtonItem * settingsBarButton;
+    UIBarButtonItem * uploadBarButton;
     
     
     
@@ -90,6 +91,8 @@
     addBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"50-plus.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addPointButtonPressed:)];
     
     settingsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear.png"] style:UIBarButtonItemStylePlain target:self action:@selector(infoButtonPressed:)];
+    
+    uploadBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload.png"] style:UIBarButtonItemStylePlain target:self action:@selector(uploadButtonPressed:)];
     
     downloadBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"download.png"] style:UIBarButtonItemStylePlain target:self action:@selector(downloadButtonPressed:)];
     downloadOrSpinnerBarButton = downloadBarButton;
@@ -107,13 +110,15 @@
     
     toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, self.view.bounds.size.width, 44)];
     toolBar.delegate = self;
-    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadOrSpinnerBarButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,settingsBarButton]];
+    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadOrSpinnerBarButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,uploadBarButton,flexibleSpaceBarItem, settingsBarButton]];
     [self.view addSubview:toolBar];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
     
     mapManager = [[OPEMapManager alloc] init];
     
@@ -162,6 +167,9 @@
     
     // add database node
     [self.downloadManger loadDatabase];
+
+//    NSArray *elements = [self.osmData allElementsWithType:YES];
+//    [self.mapManager addAnnotationsForOsmElements:elements withMapView:self.mapView];
 }
 
 -(UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
@@ -397,6 +405,35 @@
 {
     [self downloadNewArea:self.mapView];
 }
+
+-(void)uploadButtonPressed:(id)sender
+{
+    NSArray *elements = [self.osmData allModifiedElementsWithType:YES];
+    
+    if (elements.count == 0)
+    {
+        return;
+    }
+    if (!self.apiManager.auth.canAuthorize)
+    {
+        [self showAuthError];
+        return;
+    }
+    
+    [self startSave];
+
+    [self.apiManager uploadElements:elements withChangesetComment:@"update" openedChangeset:^(int64_t changesetID) {
+        [self didOpenChangeset:changesetID withMessage:nil];
+    } updatedElements:^(NSArray *updatedElements) {
+        [self.osmData updateModifiedElements:updatedElements];
+    } closedChangeSet:^(int64_t changesetID) {
+        [super didCloseChangeset:changesetID ];
+    } failure:^(NSError *error) {
+        [super uploadFailed:error];
+    }];
+
+}
+
 - (void)infoButtonPressed:(id)sender
 {
     OPEInfoViewController * viewer = [[OPEInfoViewController alloc] init];

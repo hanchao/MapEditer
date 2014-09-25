@@ -18,7 +18,7 @@
 +(BOOL)createDatabaseWithError:(NSError **)error
 {
     NSString* resPath = [OPEConstants databasePath];
-    BOOL override = NO;
+    BOOL override = YES;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:resPath];
     OSMDatabaseManager * osmData = [[OSMDatabaseManager alloc] initWithFilePath:resPath overrideIfExists:override];
     //[OSMDatabaseManager initialize];
@@ -106,7 +106,7 @@
                 result = NO;
                 return;
             }
-            
+        
             if (![db executeUpdate:@"ALTER TABLE nodes ADD COLUMN isVisible INTEGER DEFAULT 1"]) {
                 result = NO;
                 return;

@@ -23,7 +23,7 @@ CREATE TABLE nodes (
 	timestamp TEXT,
 	version TEXT,
 	changeset INTEGER,
-	action TEXT CHECK ( action IN ("delete", "update"))
+	action INTEGER DEFAULT 0
 );
 
 CREATE TABLE nodes_tags (
@@ -39,7 +39,7 @@ CREATE TABLE ways (
 	timestamp TEXT,
 	version TEXT,
 	changeset INTEGER,
-	action TEXT CHECK ( action IN ("delete", "update"))
+	action INTEGER DEFAULT 0
 );
 
 CREATE TABLE ways_tags (
@@ -64,7 +64,7 @@ CREATE TABLE relations (
 	timestamp TEXT,
 	version TEXT,
 	changeset INTEGER,
-	action TEXT CHECK ( action IN ("delete", "update"))
+	action INTEGER DEFAULT 0
 );
 CREATE TABLE relations_members (
 	relation_id INTEGER REFERENCES relations ( id ),

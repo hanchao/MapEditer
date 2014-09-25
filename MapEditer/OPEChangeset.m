@@ -27,6 +27,14 @@
     return self;
 }
 
+-(void)addElements:(NSArray *)elements
+{
+    for (int i=0; i<[elements count]; i++)  {
+        OPEOsmElement* element = [elements objectAtIndex:i];
+        [self addElement:element];
+    }
+}
+
 -(void)addElement:(OPEOsmElement *)element
 {
     if ([element isKindOfClass:[OPEOsmNode class]]) {

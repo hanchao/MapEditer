@@ -316,7 +316,7 @@
     for (OPEOsmElement * element in elementsArray)
     {
         [self removeAnnotationForOsmElement:element withMapView:mapView];
-        if (![element.action isEqualToString:kActionTypeDelete]) {
+        if (element.action != OPEActionTypeDelete) {
             NSArray * annotationsArray = [self annotationsForOsmElement:element withMapView:mapView];
             for(RMAnnotation * annotation in annotationsArray) {
                 [mapView addAnnotation:annotation];

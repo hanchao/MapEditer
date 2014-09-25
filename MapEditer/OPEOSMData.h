@@ -57,6 +57,8 @@
 -(NSArray *)outerPolygonsForRelation:(OPEOsmRelation *)relation;
 -(NSArray *)innerPolygonsForRelation:(OPEOsmRelation *)relation;
 -(NSArray *)allMembersOfRelation:(OPEOsmRelation *)relation;
+-(void)updateElement:(OPEOsmElement *)element;
+-(void)deleteElement:(OPEOsmElement *)element;
 -(void)getTagsForElement:(OPEOsmElement *)element;
 -(void)updateLegacyTags:(OPEOsmElement *)element;
 
@@ -79,5 +81,8 @@
 -(OSMNote *)createNoteWithJSONDictionary:(NSDictionary *)noteDictionary;
 
 -(NSArray *)allElementsWithType:(BOOL)withType;
+-(NSArray *)allModifiedElementsWithType:(BOOL)withType;
+
+-(NSArray *)updateModifiedElements:(NSArray *)elementsArray;
 
 @end

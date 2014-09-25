@@ -33,7 +33,7 @@
              success:(void (^)(NSData * response))success
              failure:(void (^)(NSError *error))failure;
 
--(void)uploadElement:(OPEOsmElement *)element
+-(void)uploadElements:(NSArray *)elements
 withChangesetComment:(NSString *)changesetComment
      openedChangeset:(void (^)(int64_t changesetID))openedChangeset
      updatedElements:(void (^)(NSArray * updatedElements))updatedElements

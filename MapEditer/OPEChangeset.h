@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString * message;
 @property (nonatomic, strong) NSMutableDictionary * tags;
 
+-(void)addElements:(NSArray *)elements;
 -(void)addElement:(OPEOsmElement *)element;
 -(BOOL)hasNodes;
 -(BOOL)hasWays;

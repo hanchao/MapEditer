@@ -370,6 +370,7 @@
 		63FBA5B0171E08F50098A2F3 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FBA5AF171E08F40098A2F3 /* libstdc++.dylib */; };
 		63FCA4511643363800A28470 /* OPEUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCA4501643363700A28470 /* OPEUtility.m */; };
 		63FD2DAD172F329A0094B969 /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 63FD2DAC172F329A0094B969 /* Tags.json */; };
+		D6342BB919D3F75A00566EA1 /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6342BB819D3F75A00566EA1 /* upload@2x.png */; };
 		D637EFC019541F9000765358 /* optimizeDb.sql in Resources */ = {isa = PBXBuildFile; fileRef = D637EFA119541F9000765358 /* optimizeDb.sql */; };
 		D637EFC119541F9000765358 /* OSMComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D637EFA319541F9000765358 /* OSMComment.m */; };
 		D637EFC219541F9000765358 /* OSMDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D637EFA519541F9000765358 /* OSMDatabaseManager.m */; };
@@ -853,6 +854,7 @@
 		63FCA44F1643363700A28470 /* OPEUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEUtility.h; sourceTree = "<group>"; };
 		63FCA4501643363700A28470 /* OPEUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OPEUtility.m; sourceTree = "<group>"; };
 		63FD2DAC172F329A0094B969 /* Tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Tags.json; sourceTree = "<group>"; };
+		D6342BB819D3F75A00566EA1 /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
 		D637EFA119541F9000765358 /* optimizeDb.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = optimizeDb.sql; sourceTree = "<group>"; };
 		D637EFA219541F9000765358 /* OSMComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSMComment.h; sourceTree = "<group>"; };
 		D637EFA319541F9000765358 /* OSMComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSMComment.m; sourceTree = "<group>"; };
@@ -964,6 +966,7 @@
 		6326680717164578002CD7E4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D6342BB819D3F75A00566EA1 /* upload@2x.png */,
 				D6D66E2F198629FE0090DD22 /* placeholder.png */,
 				D6D66E30198629FE0090DD22 /* placeholder@2x.png */,
 				63021FAC17F3ADA900812BF6 /* note_open@2x.png */,
@@ -1866,6 +1869,7 @@
 				632669E817164579002CD7E4 /* shoe@2x.png in Resources */,
 				632669E917164579002CD7E4 /* shop@2x.png in Resources */,
 				632669EA17164579002CD7E4 /* shower@2x.png in Resources */,
+				D6342BB919D3F75A00566EA1 /* upload@2x.png in Resources */,
 				632669EB17164579002CD7E4 /* stardavid@2x.png in Resources */,
 				632669EC17164579002CD7E4 /* subway_entrance@2x.png in Resources */,
 				632669ED17164579002CD7E4 /* swimmer@2x.png in Resources */,

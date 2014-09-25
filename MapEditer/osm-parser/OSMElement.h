@@ -17,7 +17,7 @@
 @property (nonatomic) int64_t uid;
 @property (nonatomic) int64_t version;
 @property (nonatomic) int64_t changeset;
-@property (nonatomic,strong) NSString * action;
+@property (nonatomic) int action;
 @property (nonatomic,strong) NSDate * timeStamp;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;

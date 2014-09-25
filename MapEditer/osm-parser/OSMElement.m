@@ -37,6 +37,7 @@
     self.elementID = [[dictionary objectForKey:@"id"] longLongValue];
     self.uid = [[dictionary objectForKey:@"uid"] longLongValue];
     self.user = [dictionary objectForKey:@"user"];
+    self.action = [[dictionary objectForKey:@"action"] integerValue];
     self.version = [[dictionary objectForKey:@"version"] longLongValue];
     self.changeset = [[dictionary objectForKey:@"changeset"] longLongValue];
     

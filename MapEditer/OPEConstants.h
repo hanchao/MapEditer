@@ -35,6 +35,12 @@ typedef NS_ENUM(NSUInteger, OPEOptionalType){
     OPEOptionalTypeHours
 };
 
+typedef NS_ENUM(NSUInteger, OPEActionType){
+    OPEActionTypeNone,
+    OPEActionTypeModify,
+    OPEActionTypeDelete
+};
+
 extern NSString *const kTypeText;
 extern NSString *const KTypeName;
 extern NSString *const kTypeList;
@@ -64,9 +70,6 @@ extern NSString *const kLastDownloadedKey;
 
 extern NSString *const kLastImportHashKey;
 extern NSString *const kLastImportFileDate;
-
-extern NSString *const kActionTypeModify;
-extern NSString *const kActionTypeDelete;
 
 extern NSString *const kOPEOsmElementNode;
 extern NSString *const kOPEOsmElementWay;

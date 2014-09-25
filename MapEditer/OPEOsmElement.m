@@ -25,6 +25,7 @@
 {
     if (self = [super init]) {
         self.isVisible = YES;
+        self.action = OPEActionTypeNone;
     }
     return self;
 }
@@ -34,7 +35,7 @@
         //self.element = [[Element alloc] initWithDictionary:dictionary];
         self.isVisible = dictionary[@"isVisible"];
         
-        self.action = dictionary[@"action"];
+        self.action = [dictionary[@"action"] integerValue];
         if ([dictionary[@"poi_id"] isKindOfClass:[NSNumber class]]) {
             self.typeID = [dictionary[@"poi_id"] intValue];
         }

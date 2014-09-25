@@ -259,7 +259,7 @@ NSString *const deleteMethod = @"DELETE";
     return finalUrl;
 }
 
--(void)uploadElement:(OPEOsmElement *)element
+-(void)uploadElements:(NSArray *)elements
 withChangesetComment:(NSString *)changesetComment
      openedChangeset:(void (^)(int64_t changesetID))openedChangeset
      updatedElements:(void (^)(NSArray * updatedElements))updatedElements
@@ -267,7 +267,7 @@ withChangesetComment:(NSString *)changesetComment
              failure:(void (^)(NSError * response))failure
 {
     OPEChangeset * changeset = [[OPEChangeset alloc] init];
-    [changeset addElement:element];
+    [changeset addElements:elements];
     changeset.message = changesetComment;
     
     [self openChangeset:changeset success:^(int64_t changesetID) {
@@ -348,7 +348,7 @@ withChangesetComment:(NSString *)changesetComment
     {
         for(OPEOsmElement * element in elmentArray)
         {
-            if([element.action isEqualToString:kActionTypeDelete])
+            if(element.action == OPEActionTypeDelete)
             {
                 AFHTTPRequestOperation * deleteOperation = [self deleteRequestOperationWithElement:element changeset:changeset.changesetID success:^(OPEOsmElement *Element) {
                     if (success) {
@@ -362,7 +362,7 @@ withChangesetComment:(NSString *)changesetComment
                 
                 [requestOperations addObject:deleteOperation];
             }
-            else if([element.action isEqualToString:kActionTypeModify])
+            else if(element.action == OPEActionTypeModify)
             {
                 AFHTTPRequestOperation * updateOperation = [self uploadRequestOperationWithElement:element changeset:changeset.changesetID success:^(OPEOsmElement *element) {
                     if (success) {

@@ -114,7 +114,7 @@
 - (NSString *)changesetCommentfor:(OPEOsmElement *)element
 {
     NSString * comment;
-    if ([element.action isEqualToString:kActionTypeDelete]) {
+    if (element.action == OPEActionTypeDelete) {
         comment = [NSString stringWithFormat:@"Deleted POI: %@",[self nameForElement: element]];
     }
     else{
@@ -523,8 +523,21 @@
         {
             [db executeUpdate:sqlString];
         }
-        NSString * updatePOIStatement = [NSString stringWithFormat:@"UPDATE %@ SET poi_id = %d,isVisible = %d,action = \'%@\' WHERE id = %lld",element.element.tableName,element.typeID,element.isVisible,element.action,element.elementID];
+        NSString * updatePOIStatement = [NSString stringWithFormat:@"UPDATE %@ SET poi_id = %d,isVisible = %d,action = %d WHERE id = %lld",element.element.tableName,element.typeID,element.isVisible,element.action,element.elementID];
         [db executeUpdate:updatePOIStatement];
+    }];
+}
+
+-(void)deleteElement:(OPEOsmElement *)element
+{
+    [self.databaseQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        
+        NSString * deleteStatement = [NSString stringWithFormat:@"DELETE FROM %@ WHERE id = %lld",element.element.tableName,element.elementID];
+        [db executeUpdate:deleteStatement];
+        
+        NSString * columnID = [NSString stringWithFormat:@"%@_id",[element.element.tableName substringToIndex:[element.element.tableName length] - 1]];
+        NSString * deleteTagsStatement = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %lld",element.element.tagsTableName,columnID,element.elementID];
+        [db executeUpdate:deleteTagsStatement];
     }];
 }
 
@@ -608,6 +621,17 @@
     return resultArray;
 }
 
+-(NSArray *)allModifiedElementsWithType:(BOOL)withType
+{
+    NSMutableArray * resultArray = [NSMutableArray array];
+    
+    [resultArray addObjectsFromArray:[self allModifiedElementsOfKind:kOPEOsmElementNode withType:YES]];
+    [resultArray addObjectsFromArray:[self allModifiedElementsOfKind:kOPEOsmElementWay withType:YES]];
+    [resultArray addObjectsFromArray:[self allModifiedElementsOfKind:kOPEOsmElementRelation withType:YES]];
+    
+    return resultArray;
+}
+
 -(OPEOsmElement *)elementOfKind:(NSString *)kind osmID:(int64_t)osmID
 {
     __block OPEOsmElement * managedElement = nil;
@@ -636,6 +660,35 @@
             [resultArray addObject:managedElement];
         }
     }];
+    
+    return  resultArray;
+}
+
+-(NSArray *)allModifiedElementsOfKind:(NSString *)kind withType:(BOOL)withType
+{
+    __block NSMutableArray * resultArray = [NSMutableArray array];
+    NSMutableString * sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@s WHERE action > 0",kind];
+    if (withType) {
+        [sql appendFormat:@" AND poi_id > 0"];
+    }
+    [self.databaseQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet * set = [db executeQuery:sql];
+        
+        while ([set next]) {
+            OPEOsmElement * managedElement = [OPEOsmElement elementWithType:kind withDictionary:[set resultDict]];
+            [resultArray addObject:managedElement];
+        }
+    }];
+    
+    //if (withTags) {
+        for (int i=0; i<[resultArray count]; i++)  {
+            OPEOsmElement* managedElement = [resultArray objectAtIndex:i];
+            if (managedElement!=nil){
+                [self getTagsForElement:managedElement];
+            }
+            
+        }
+    //}
     
     return  resultArray;
 }
@@ -853,6 +906,22 @@
     for (OPEOsmElement * element in elementsArray)
     {
         [self updateElement:element];
+    }
+}
+
+-(NSArray *)updateModifiedElements:(NSArray *)elementsArray
+{
+    for (OPEOsmElement * element in elementsArray)
+    {
+        if (element.action == OPEActionTypeDelete)
+        {
+            [self deleteElement:element];
+        }
+        else if (element.action == OPEActionTypeModify)
+        {
+            element.action = OPEActionTypeNone;
+            [self updateElement:element];
+        }
     }
 }
 
