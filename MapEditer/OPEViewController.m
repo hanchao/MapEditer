@@ -364,39 +364,27 @@
 - (void)addPointButtonPressed:(id)sender
 {
     CLLocationCoordinate2D center = self.mapView.centerCoordinate;
-    
-    if ([self.downloadManger downloadedAreaContainsPoint:center]) {
-        DDLogInfo(@"Should be allowed to download");
-        if (self.mapView.zoom > MINZOOM) {
-            
-            OPEOsmNode * node = [OPEOsmNode newNode];
-            node.element.elementID = [self.osmData newElementId];
-            node.element.latitude = center.latitude;
-            node.element.longitude = center.longitude;
-            
-            OPENewNodeSelectViewController * newNodeController = [[OPENewNodeSelectViewController alloc] initWithNewElement:node];
-            newNodeController.location = center;
-            newNodeController.nodeViewDelegate = self;
-            
-            UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:newNodeController];
-            
-            //[self.navigationController presentModalViewController:navController animated:YES];
-            [self.navigationController presentViewController:navController animated:YES completion:nil];
-            
-            //[self presentNodeInfoViewControllerWithElement:node];
-        }
-    }
-    else {
-        DDLogError(@"Outside downloaded area");
+
+    DDLogInfo(@"Should be allowed to download");
+    if (self.mapView.zoom > MINZOOM) {
         
-        UIAlertView * zoomAlert = [[UIAlertView alloc]
-                                   initWithTitle: ADD_ALERT_TITLE_STRING
-                                   message: ADD_ALERT_MESSAGE_STRNG
-                                   delegate: nil
-                                   cancelButtonTitle:OK_STRING
-                                   otherButtonTitles:nil];
-        [zoomAlert show];
+        OPEOsmNode * node = [OPEOsmNode newNode];
+        node.element.elementID = [self.osmData newElementId];
+        node.element.latitude = center.latitude;
+        node.element.longitude = center.longitude;
+        
+        OPENewNodeSelectViewController * newNodeController = [[OPENewNodeSelectViewController alloc] initWithNewElement:node];
+        newNodeController.location = center;
+        newNodeController.nodeViewDelegate = self;
+        
+        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:newNodeController];
+        
+        //[self.navigationController presentModalViewController:navController animated:YES];
+        [self.navigationController presentViewController:navController animated:YES completion:nil];
+        
+        //[self presentNodeInfoViewControllerWithElement:node];
     }
+
 }
 
 -(void)locationButtonPressed:(id)sender
