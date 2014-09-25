@@ -23,8 +23,7 @@
 
 -(void)findishedAuthWithError:(NSError *)error;
 
--(void)didOpenChangeset:(int64_t)changesetNumber withMessage:(NSString *)message;
--(void)didCloseChangeset:(int64_t)changesetNumber;
--(void)uploadFailed:(NSError *)error;
+-(void)showCompleteMessage;
+-(void)showFailedMessage:(NSError *)error;
 
 @end

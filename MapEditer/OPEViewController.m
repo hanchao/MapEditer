@@ -325,6 +325,7 @@
             [self endDownloading];
         } faiure:^(NSError *error) {
             [self endDownloading];
+            [super showFailedMessage:error];
         }];
     }
 }
@@ -431,15 +432,15 @@
     [self startUploading];
 
     [self.apiManager uploadElements:elements withChangesetComment:@"update" openedChangeset:^(int64_t changesetID) {
-        [self didOpenChangeset:changesetID withMessage:nil];
+
     } updatedElement:^(OPEOsmElement *updatedElement) {
         [self.osmData updateModifiedElement:updatedElement];
     } closedChangeSet:^(int64_t changesetID) {
-        [super didCloseChangeset:changesetID ];
+        [super showCompleteMessage];
         [self endUploading];
     } failure:^(NSError *error) {
         [self endUploading];
-        [super uploadFailed:error];
+        [super showFailedMessage:error];
     }];
 
 }

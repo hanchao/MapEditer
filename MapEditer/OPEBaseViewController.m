@@ -164,15 +164,8 @@
     [HUD show:YES];
 }
 
-#pragma OPEOsmDataDelegate
 
--(void)didOpenChangeset:(int64_t)changesetNumber withMessage:(NSString *)message
-{
-    self.HUD.mode = MBProgressHUDModeIndeterminate;
-    self.HUD.labelText = [NSString stringWithFormat:@"%@...",UPLOADING_STRING];
-    
-}
--(void)didCloseChangeset:(int64_t)changesetNumber
+-(void)showCompleteMessage
 {
     [self.view addSubview:self.HUD];
     self.HUD.mode = MBProgressHUDModeCustomView;
@@ -181,7 +174,7 @@
     [self.HUD show:YES];
     [self.HUD hide:YES afterDelay:1.0];
 }
--(void)uploadFailed:(NSError *)error
+-(void)showFailedMessage:(NSError *)error
 {
     [self.view addSubview:self.HUD];
     self.HUD.mode = MBProgressHUDModeCustomView;

@@ -586,23 +586,7 @@
         [self checkSaveButton];
         
         [self dismissViewController];
-//        [self startSave];
-//        
-//        [self.apiManager uploadElement:self.managedOsmElement withChangesetComment:[self.osmData changesetCommentfor:self.managedOsmElement] openedChangeset:^(int64_t changesetID) {
-//            [self didOpenChangeset:changesetID withMessage:nil];
-//        } updatedElements:^(NSArray *updatedElements) {
-//            [self.osmData updateElements:updatedElements];
-//            [delegate updateAnnotationForOsmElements:updatedElements];
-//        } closedChangeSet:^(int64_t changesetID) {
-//            
-//            [super didCloseChangeset:changesetID ];
-//            [self checkSaveButton];
-//            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissViewController) userInfo:nil repeats:nil];
-//        } failure:^(NSError *error) {
-//            [super uploadFailed:error];
-//            [self checkSaveButton];
-//        }];
-        
+
     }
     else {
         DDLogInfo(@"NO CHANGES TO UPLOAD");
@@ -756,15 +740,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma OPEosmDataDelegate
-
--(void)uploadFailed:(NSError *)error
-{
-    [super uploadFailed:error];
-    [self checkSaveButton];
-    
 }
 
 -(void)dismissViewController
