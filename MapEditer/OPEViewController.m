@@ -65,7 +65,6 @@
 @synthesize firstDownload;
 @synthesize selectedNoNameHighway = _selectedNoNameHighway;
 @synthesize HUD;
-@synthesize parsingMessageView;
 @synthesize downloadManger = _downloadManger;
 @synthesize mapManager;
 
@@ -77,16 +76,11 @@
 
 -(void)setupButtons
 {
-    //mapView.frame = self.view.bounds;
-    
     UIBarButtonItem * locationBarButton;
     UIBarButtonItem * settingsBarButton;
-    UIBarButtonItem * uploadBarButton;
     
-    
-    
+
     locationBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"location.png"]style:UIBarButtonItemStylePlain target:self action:@selector(locationButtonPressed:)];
-    
     
     addBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"50-plus.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addPointButtonPressed:)];
     
@@ -95,9 +89,6 @@
     uploadBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload.png"] style:UIBarButtonItemStylePlain target:self action:@selector(uploadButtonPressed:)];
     
     downloadBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"download.png"] style:UIBarButtonItemStylePlain target:self action:@selector(downloadButtonPressed:)];
-    downloadOrSpinnerBarButton = downloadBarButton;
-    
-    
     
     UIBarButtonItem * flexibleSpaceBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -108,9 +99,10 @@
     plusImageView.center = self.mapView.center;
     [self.view addSubview:plusImageView];
     
-    toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, self.view.bounds.size.width, 44)];
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
     toolBar.delegate = self;
-    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadOrSpinnerBarButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,uploadBarButton,flexibleSpaceBarItem, settingsBarButton]];
+    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadBarButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,uploadBarButton,flexibleSpaceBarItem, settingsBarButton]];
     [self.view addSubview:toolBar];
 }
 
@@ -147,7 +139,7 @@
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(39.907333, 116.391083);
     
-    [self.mapView setZoom:18 atCoordinate:coordinate animated:NO];
+    [self.mapView setZoom:MINZOOM atCoordinate:coordinate animated:NO];
     
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -174,7 +166,7 @@
 
 -(UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
 {
-    return UIBarPositionTopAttached;
+    return UIBarPositionBottom;
 }
 
 -(OPEDownloadManager *)downloadManger{
@@ -247,26 +239,43 @@
     UIActivityIndicatorView * spinnerView= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinnerView startAnimating];
     NSMutableArray * items = [toolBar.items mutableCopy];
-    NSUInteger index = [items indexOfObject:downloadOrSpinnerBarButton];
+    NSUInteger index = 2;
     [items removeObjectAtIndex:index];
-    downloadOrSpinnerBarButton = [[UIBarButtonItem alloc] initWithCustomView:spinnerView];
-    [items insertObject:downloadOrSpinnerBarButton atIndex:index];
+    UIBarButtonItem *spinnerBarButton = [[UIBarButtonItem alloc] initWithCustomView:spinnerView];
+    [items insertObject:spinnerBarButton atIndex:index];
     toolBar.items = items;
 }
 
 - (void)endDownloading {
     NSMutableArray * items = [toolBar.items mutableCopy];
-    NSUInteger index = [items indexOfObject:downloadOrSpinnerBarButton];
+    NSUInteger index = 2;
     [items removeObjectAtIndex:index];
-    downloadOrSpinnerBarButton = downloadBarButton;
-    [items insertObject:downloadOrSpinnerBarButton atIndex:index];
+    [items insertObject:downloadBarButton atIndex:index];
     toolBar.items = items;
-    
+}
+
+- (void)startUploading {
+    UIActivityIndicatorView * spinnerView= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinnerView startAnimating];
+    NSMutableArray * items = [toolBar.items mutableCopy];
+    NSUInteger index = 6;
+    [items removeObjectAtIndex:index];
+    UIBarButtonItem *spinnerBarButton = [[UIBarButtonItem alloc] initWithCustomView:spinnerView];
+    [items insertObject:spinnerBarButton atIndex:index];
+    toolBar.items = items;
+}
+
+- (void)endUploading {
+    NSMutableArray * items = [toolBar.items mutableCopy];
+    NSUInteger index = 6;
+    [items removeObjectAtIndex:index];
+    [items insertObject:uploadBarButton atIndex:index];
+    toolBar.items = items;
 }
 
 -(void)checkZoomWithMapview:(RMMapView *)map
 {
-    if (map.zoom > MINZOOM) {
+    if (map.zoom >= MINZOOM) {
         //enablebuttons
         addBarButton.enabled = YES;
         downloadBarButton.enabled = YES;
@@ -308,15 +317,14 @@
 -(void)downloadNewArea:(RMMapView *)map
 {
     RMSphericalTrapezium geoBox = [map latitudeLongitudeBoundingBox];
-    if (map.zoom > MINZOOM) {
+    if (map.zoom >= MINZOOM) {
         [self startDownloading];
         [self.downloadManger downloadDataWithSW:geoBox.southWest forNE:geoBox.northEast didStartParsing:^{
             [self willStartParsing:nil];
         } didFinsihParsing:^{
-            [self didEndParsing];
+            [self endDownloading];
         } faiure:^(NSError *error) {
             [self endDownloading];
-            [self didEndParsing];
         }];
     }
 }
@@ -324,7 +332,7 @@
 -(void)downloadNotes:(RMMapView * )map
 {
     RMSphericalTrapezium geoBox = [map latitudeLongitudeBoundingBox];
-    if (map.zoom > MINZOOM) {
+    if (map.zoom >= MINZOOM) {
         [self.downloadManger downloadNotesWithSW:geoBox.southWest forNE:geoBox.northEast didStartParsing:^{
             DDLogInfo(@"Start parsing Notes");
         } onFoundNote:^(OSMNote *note) {
@@ -374,7 +382,7 @@
     CLLocationCoordinate2D center = self.mapView.centerCoordinate;
 
     DDLogInfo(@"Should be allowed to download");
-    if (self.mapView.zoom > MINZOOM) {
+    if (self.mapView.zoom >= MINZOOM) {
         
         OPEOsmNode * node = [OPEOsmNode newNode];
         node.element.elementID = [self.osmData newElementId];
@@ -420,7 +428,7 @@
         return;
     }
     
-    [self startSave];
+    [self startUploading];
 
     [self.apiManager uploadElements:elements withChangesetComment:@"update" openedChangeset:^(int64_t changesetID) {
         [self didOpenChangeset:changesetID withMessage:nil];
@@ -428,7 +436,9 @@
         [self.osmData updateModifiedElements:updatedElements];
     } closedChangeSet:^(int64_t changesetID) {
         [super didCloseChangeset:changesetID ];
+        [self endUploading];
     } failure:^(NSError *error) {
+        [self endUploading];
         [super uploadFailed:error];
     }];
 
@@ -503,7 +513,6 @@
 
 -(void)willStartParsing:(NSString *)typeString
 {
-    [self endDownloading];
     NSString * elementTypeString = @"";
     if ([typeString isEqualToString:kOPEOsmElementNode]) {
         elementTypeString = @"Nodes";
@@ -520,28 +529,10 @@
         CGRect frame = CGRectMake(0, 0, 130, 40);
         frame.origin.y = self.view.frame.size.height -frame.size.height-self.navigationController.toolbar.frame.size.height-10;
         frame.origin.x = (self.view.frame.size.width -frame.size.width)/2;
-        
-        
-        
-        self.parsingMessageView = [[OPEMessageView alloc] initWithIndicator:YES frame:frame];
-        //self.parsingMessageView.textLabel.text = [NSString stringWithFormat:@"Finding %@ ...",elementTypeString];
-        [self.view addSubview:self.parsingMessageView];
     }
-    self.parsingMessageView.textLabel.text = [NSString stringWithFormat:@"%@ %@ ...",PARSING_STRING,elementTypeString];
-    
-    
     
     self.numberOfOngoingParses += 1;
 
-}
-
--(void)didEndParsing
-{
-    self.numberOfOngoingParses -=1;
-    if (self.numberOfOngoingParses < 1) {
-        [self.parsingMessageView removeFromSuperview];
-        self.parsingMessageView = nil;
-    }
 }
 
 -(void)downloadFailed:(NSError *)error

@@ -158,7 +158,7 @@
 
 -(void)startSave
 {
-    [self.navigationController.view addSubview:HUD];
+    [self.view addSubview:HUD];
     self.HUD.mode = MBProgressHUDModeIndeterminate;
     [HUD setLabelText:[NSString stringWithFormat:@"%@...",SAVING_STRING]];
     [HUD show:YES];
@@ -174,16 +174,20 @@
 }
 -(void)didCloseChangeset:(int64_t)changesetNumber
 {
+    [self.view addSubview:self.HUD];
+    self.HUD.mode = MBProgressHUDModeCustomView;
     self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.png"]];
-    HUD.mode = MBProgressHUDModeCustomView;
     self.HUD.labelText = COMPLETE_STRING;
+    [self.HUD show:YES];
     [self.HUD hide:YES afterDelay:1.0];
 }
 -(void)uploadFailed:(NSError *)error
 {
+    [self.view addSubview:self.HUD];
+    self.HUD.mode = MBProgressHUDModeCustomView;
     self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"x.png"]];
-    HUD.mode = MBProgressHUDModeCustomView;
-    self.HUD.labelText =ERROR_STRING;
+    self.HUD.labelText = COMPLETE_STRING;
+    [self.HUD show:YES];
     [self.HUD hide:YES afterDelay:2.0];
 }
 

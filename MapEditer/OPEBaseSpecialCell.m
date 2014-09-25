@@ -21,7 +21,7 @@
         
         self.leftLabel = [[UILabel alloc] init];
         self.leftLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.leftLabel.backgroundColor = [UIColor blueColor];
+        //self.leftLabel.backgroundColor = [UIColor blueColor];
         //leftLabel.text = leftText;
         self.leftLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
         self.leftLabel.textColor = [UIColor colorWithRed:0 green:0.47843137 blue:1 alpha:1];

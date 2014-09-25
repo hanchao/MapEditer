@@ -21,8 +21,7 @@
 //  along with POI+.  If not, see <http://www.gnu.org/licenses/>.
 
 #import <UIKit/UIKit.h>
-#import "RMMapView.h"
-#import "RMMapViewDelegate.h" 
+#import "Mapbox.h"
 #import <CoreLocation/CoreLocation.h>
 #import "OPEOSMData.h"
 #import "OPEDownloadManager.h"
@@ -44,8 +43,8 @@
     OPEOSMSearchManager * searchManager;
     OPEOSMAPIManager * apiManager;
     UIBarButtonItem * downloadBarButton;
-    UIBarButtonItem * downloadOrSpinnerBarButton;
     UIBarButtonItem * addBarButton;
+    UIBarButtonItem * uploadBarButton;
     UIToolbar * toolBar;
 }
 
@@ -68,7 +67,6 @@
 @property (nonatomic,strong) RMMarker * nodeInfo;
 @property (nonatomic,strong) RMMarker * currentLocationMarker;
 @property (nonatomic, strong) OPEMessageView * message;
-@property (nonatomic, strong) OPEMessageView * parsingMessageView;
 @property (nonatomic, strong) NSMutableDictionary * imagesDic;
 @property (nonatomic) RMSphericalTrapezium currentSquare;
 @property (nonatomic) BOOL userPressedLocatoinButton;
