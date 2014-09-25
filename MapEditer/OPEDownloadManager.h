@@ -24,6 +24,7 @@ typedef void (^foundMatchingElementsBlock)(NSArray * newElements,NSArray * updat
 @property (nonatomic, strong) NSMutableDictionary * notesDictionary;
 @property (nonatomic, copy) foundMatchingElementsBlock foundMatchingElementsBlock;
 
+- (void)loadDatabase;
 
 - (void)downloadDataWithSW:(CLLocationCoordinate2D)southWest
                      forNE: (CLLocationCoordinate2D) northEast

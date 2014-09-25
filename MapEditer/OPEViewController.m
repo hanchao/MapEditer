@@ -50,7 +50,6 @@
 
 #import "OPELog.h"
 
-
 #define noNameTag 100
 
 
@@ -141,7 +140,9 @@
         self.mapView.contentScaleFactor = 1.0;
     }
     
-    [self.mapView setZoom: 18];
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(39.907333, 116.391083);
+    
+    [self.mapView setZoom:18 atCoordinate:coordinate animated:NO];
     
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -158,6 +159,9 @@
     
     downloadedNoNameHighways = [NSMutableDictionary dictionary];
     searchManager = [[OPEOSMSearchManager alloc] init];
+    
+    // add database node
+    [self.downloadManger loadDatabase];
 }
 
 -(UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
@@ -338,10 +342,20 @@
 -(void)setTileSource:(id)tileSource
 {
     if (tileSource) {
-        [self.mapView removeAllCachedImages];
+        //[self.mapView removeAllCachedImages];
         [self.mapView setTileSource:tileSource];
     }
     DDLogInfo(@"TileSource: %@",((id<RMTileSource>)tileSource));
+    
+}
+
+-(void)clearTile
+{
+    [self.mapView removeAllCachedImages];
+}
+
+-(void)clearData
+{
     
 }
 

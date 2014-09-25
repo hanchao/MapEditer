@@ -195,6 +195,20 @@
     else if (indexPath.section == 2)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:aboutIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aboutIdentifier];
+        }
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"clear tile";
+        }
+        else if (indexPath.row == 1) {
+            cell.textLabel.text = @"clear data";;
+        }
+    }
+    else if (indexPath.section == 3)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:aboutIdentifier];
 
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aboutIdentifier];
@@ -242,6 +256,17 @@
         
     }
     else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            [delegate clearTile];
+        }
+        else if (indexPath.row == 1) {
+            [delegate clearData];
+        }
+        
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
             MFMailComposeViewController *controller = [MFMailComposeViewController new];
             controller.mailComposeDelegate = self;

@@ -44,6 +44,8 @@
 /** Returns a node from its nodeid. */
 - (OSMNode*)getNodeFromID:(int64_t)nodeId withTags:(BOOL)withTags;
 
+- (NSArray*)getAllNodeWithTags:(BOOL)withTags;
+
 - (NSArray*)getNodesForWay:(OSMWay*)way;
 
 - (OSMWay*)getWayWithID:(int64_t)wayid;

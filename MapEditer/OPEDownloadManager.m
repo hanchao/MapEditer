@@ -42,6 +42,11 @@
     return self;
 }
 
+- (void)loadDatabase{
+    OSMParserHandlerDefault* handler = [[OSMParserHandlerDefault alloc] initWithDatabaseQueue:[OPEDatabaseManager defaultDatabaseQueue]];
+    NSArray *nodes = [handler.databaseManager getAllNodeWithTags:YES];
+    [self didFinishSavingNewElements:nodes updatedElements:nil];
+}
 
 - (void)downloadDataWithSW:(CLLocationCoordinate2D)southWest
                      forNE: (CLLocationCoordinate2D) northEast

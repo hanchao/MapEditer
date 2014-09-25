@@ -139,8 +139,10 @@
         [nodes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             //sleep(1);
             OSMNode * node = obj;
+
             BOOL shouldUpdate = YES;
             BOOL alreadyExists = NO;
+            
             FMResultSet * set = [db executeQuery:[self sqliteCurrentVersionString:node]];
             if ([set next]) {
                 int64_t currentVersion = [set longForColumn:@"version"];
@@ -217,15 +219,51 @@
             node.latitude = [result doubleForColumn:@"latitude"];
             node.longitude = [result doubleForColumn:@"longitude"];
             node.action = [result stringForColumn:@"action"];
-            
-            if (withTags) {
-                node.tags = [[self getTagsForElement:node] mutableCopy];
-            }
         }
         [result close];
     }];
     
+    if (withTags) {
+        node.tags = [[self getTagsForElement:node] mutableCopy];
+    }
+    
     return node;
+    
+}
+
+-(NSArray*) getAllNodeWithTags:(BOOL)withTags{
+    
+    __block NSMutableArray * nodes = [NSMutableArray array];
+    [self.databaseQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet * result = [db executeQueryWithFormat:@"SELECT * FROM nodes"];
+        while ([result next]) {
+            OSMNode * node = [[OSMNode alloc] init];
+            node.elementID = [result longLongIntForColumn:@"id"];
+            node.user = [result stringForColumn:@"user"];
+            node.uid = [result longLongIntForColumn:@"uid"];
+            node.version = [result longLongIntForColumn:@"version"];
+            node.changeset = [result stringForColumn:@"changeset"];
+            [node addDateWithString:[result stringForColumn:@"timestamp"]];
+            node.latitude = [result doubleForColumn:@"latitude"];
+            node.longitude = [result doubleForColumn:@"longitude"];
+            node.action = [result stringForColumn:@"action"];
+            
+            [nodes addObject:node];
+        }
+        [result close];
+    }];
+    
+    if (withTags) {
+        for (int i=0; i<[nodes count]; i++)  {
+            OSMNode* node = [nodes objectAtIndex:i];
+            if (node!=nil){
+                node.tags = [[self getTagsForElement:node] mutableCopy];
+            }
+            
+        }
+    }
+    
+    return nodes;
     
 }
 
@@ -268,8 +306,9 @@
             tableName = @"relations_tags";
             idColumnName = @"relation_id";
         }
+        NSString *sql = [NSString stringWithFormat:@"select key, value from %@ where %@=%lld",tableName,idColumnName,element.elementID];
         
-        FMResultSet * results = [db executeQueryWithFormat:@"select key, value from %@ where %@=%lld",tableName,idColumnName,element.elementID];
+        FMResultSet * results = [db executeQuery:sql];
         while ([results next]) {
             [tags setObject:[results stringForColumn:@"value"] forKey:[results stringForColumn:@"key"]];
         }

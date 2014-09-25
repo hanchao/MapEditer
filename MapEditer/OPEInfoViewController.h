@@ -29,7 +29,8 @@
 @protocol OPEInfoViewControllerDelegate
 @optional
 -(void)setTileSource:(id)tileSource;
-
+-(void)clearTile;
+-(void)clearData;
 @end
 
 @interface OPEInfoViewController : OPEBaseViewController <UITableViewDelegate, UITableViewDataSource>
