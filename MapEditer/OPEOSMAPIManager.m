@@ -262,7 +262,7 @@ NSString *const deleteMethod = @"DELETE";
 -(void)uploadElements:(NSArray *)elements
 withChangesetComment:(NSString *)changesetComment
      openedChangeset:(void (^)(int64_t changesetID))openedChangeset
-     updatedElements:(void (^)(NSArray * updatedElements))updatedElements
+     updatedElements:(void (^)(NSArray * updatedElement))updatedElement
      closedChangeSet:(void (^)(int64_t changesetID))closedChangeset
              failure:(void (^)(NSError * response))failure
 {
@@ -274,9 +274,9 @@ withChangesetComment:(NSString *)changesetComment
         if (openedChangeset) {
             openedChangeset(changesetID);
         }
-        [self uploadElements:changeset success:^(NSArray *elements) {
-            if (updatedElements) {
-                updatedElements(elements);
+        [self uploadElements:changeset success:^(OPEOsmElement *element) {
+            if (updatedElement) {
+                updatedElement(element);
             }
             
             [self closeChangeset:changesetID success:^(id response) {
@@ -337,7 +337,7 @@ withChangesetComment:(NSString *)changesetComment
     [requestOperation start];
 }
 
--(void)uploadElements:(OPEChangeset *)changeset success:(void (^)(NSArray * elements))success failure:(void (^)(OPEOsmElement * element, NSError * error))failure
+-(void)uploadElements:(OPEChangeset *)changeset success:(void (^)(OPEOsmElement * element))success failure:(void (^)(OPEOsmElement * element, NSError * error))failure
 {
     if (!changeset.changesetID && failure) {
         failure(nil,nil);
@@ -352,7 +352,7 @@ withChangesetComment:(NSString *)changesetComment
             {
                 AFHTTPRequestOperation * deleteOperation = [self deleteRequestOperationWithElement:element changeset:changeset.changesetID success:^(OPEOsmElement *Element) {
                     if (success) {
-                        success(@[element]);
+                        success(element);
                     }
                 } failure:^(OPEOsmElement * element,NSError *error) {
                     if (failure) {
@@ -366,7 +366,7 @@ withChangesetComment:(NSString *)changesetComment
             {
                 AFHTTPRequestOperation * updateOperation = [self uploadRequestOperationWithElement:element changeset:changeset.changesetID success:^(OPEOsmElement *element) {
                     if (success) {
-                        success(@[element]);
+                        success(element);
                     }
                 } failure:^(OPEOsmElement * element,NSError *error) {
                     if (failure) {

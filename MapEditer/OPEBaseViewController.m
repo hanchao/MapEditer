@@ -186,7 +186,7 @@
     [self.view addSubview:self.HUD];
     self.HUD.mode = MBProgressHUDModeCustomView;
     self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"x.png"]];
-    self.HUD.labelText = COMPLETE_STRING;
+    self.HUD.labelText = ERROR_STRING;
     [self.HUD show:YES];
     [self.HUD hide:YES afterDelay:2.0];
 }

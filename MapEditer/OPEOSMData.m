@@ -909,19 +909,24 @@
     }
 }
 
+-(NSArray *)updateModifiedElement:(OPEOsmElement*)element
+{
+    if (element.action == OPEActionTypeDelete)
+    {
+        [self deleteElement:element];
+    }
+    else if (element.action == OPEActionTypeModify)
+    {
+        element.action = OPEActionTypeNone;
+        [self updateElement:element];
+    }
+}
+
 -(NSArray *)updateModifiedElements:(NSArray *)elementsArray
 {
     for (OPEOsmElement * element in elementsArray)
     {
-        if (element.action == OPEActionTypeDelete)
-        {
-            [self deleteElement:element];
-        }
-        else if (element.action == OPEActionTypeModify)
-        {
-            element.action = OPEActionTypeNone;
-            [self updateElement:element];
-        }
+        [self updateModifiedElement:element];
     }
 }
 

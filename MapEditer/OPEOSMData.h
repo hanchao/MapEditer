@@ -83,6 +83,7 @@
 -(NSArray *)allElementsWithType:(BOOL)withType;
 -(NSArray *)allModifiedElementsWithType:(BOOL)withType;
 
+-(NSArray *)updateModifiedElement:(OPEOsmElement*)element;
 -(NSArray *)updateModifiedElements:(NSArray *)elementsArray;
 
 @end

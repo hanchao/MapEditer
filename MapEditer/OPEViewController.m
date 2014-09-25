@@ -432,8 +432,8 @@
 
     [self.apiManager uploadElements:elements withChangesetComment:@"update" openedChangeset:^(int64_t changesetID) {
         [self didOpenChangeset:changesetID withMessage:nil];
-    } updatedElements:^(NSArray *updatedElements) {
-        [self.osmData updateModifiedElements:updatedElements];
+    } updatedElement:^(OPEOsmElement *updatedElement) {
+        [self.osmData updateModifiedElement:updatedElement];
     } closedChangeSet:^(int64_t changesetID) {
         [super didCloseChangeset:changesetID ];
         [self endUploading];

@@ -36,7 +36,7 @@
 -(void)uploadElements:(NSArray *)elements
 withChangesetComment:(NSString *)changesetComment
      openedChangeset:(void (^)(int64_t changesetID))openedChangeset
-     updatedElements:(void (^)(NSArray * updatedElements))updatedElements
+     updatedElement:(void (^)(OPEOsmElement * updatedElement))updatedElement
      closedChangeSet:(void (^)(int64_t changesetID))closedChangeset
              failure:(void (^)(NSError * response))failure;
 
