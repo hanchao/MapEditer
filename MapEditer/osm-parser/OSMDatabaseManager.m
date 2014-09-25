@@ -30,7 +30,7 @@
     static const BOOL OPELogDatabaseErrors = NO;
     static const BOOL OPETraceDatabaseTraceExecution = NO;
 #endif
-
+#import "CocoaLumberjack.h"
 
 @interface OSMDatabaseManager ()
 

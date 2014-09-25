@@ -8,6 +8,7 @@
 
 #import "OSMParser.h"
 
+#import "CocoaLumberjack.h"
 #import "DDLog.h"
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;

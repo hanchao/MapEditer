@@ -18,6 +18,7 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
 static const BOOL OPELogDatabaseErrors = NO;
 static const BOOL OPETraceDatabaseTraceExecution = NO;
 #endif
+#import "CocoaLumberjack.h"
 
 @interface OSMParserHandlerDefault ()
 

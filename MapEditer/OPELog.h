@@ -7,6 +7,8 @@
 //
 
 #import "DDLog.h"
+#import "CocoaLumberjack.h"
+
 #if DEBUG
     static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     static const BOOL OPELogDatabaseErrors = NO;
