@@ -45,6 +45,8 @@
     UIBarButtonItem * downloadBarButton;
     UIBarButtonItem * addBarButton;
     UIBarButtonItem * uploadBarButton;
+    UIBarButtonItem * forwardBarButton;
+    UIBarButtonItem * backButton;
     UIToolbar * toolBar;
 }
 

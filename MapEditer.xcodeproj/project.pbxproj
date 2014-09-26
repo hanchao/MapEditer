@@ -382,6 +382,8 @@
 		D637EFCE19541F9000765358 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D637EFBC19541F9000765358 /* README.md */; };
 		D637EFCF19541F9000765358 /* roadNetworkInit.sql in Resources */ = {isa = PBXBuildFile; fileRef = D637EFBD19541F9000765358 /* roadNetworkInit.sql */; };
 		D637EFD2195420C200765358 /* OSMParserHandlerDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = D637EFD1195420C200765358 /* OSMParserHandlerDefault.m */; };
+		D6C17AF119D5060C00776C56 /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C17AF019D5060C00776C56 /* forward@2x.png */; };
+		D6C17AF319D5069A00776C56 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C17AF219D5069A00776C56 /* back@2x.png */; };
 		D6D1972D195413F90094893B /* OPEDone+CancelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D19728195413F90094893B /* OPEDone+CancelViewController.m */; };
 		D6D1972E195413F90094893B /* OPEOpeningHoursEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D1972A195413F90094893B /* OPEOpeningHoursEditViewController.m */; };
 		D6D1972F195413F90094893B /* OPEOpeningHoursRuleEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D1972C195413F90094893B /* OPEOpeningHoursRuleEditViewController.m */; };
@@ -874,6 +876,8 @@
 		D637EFBD19541F9000765358 /* roadNetworkInit.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roadNetworkInit.sql; sourceTree = "<group>"; };
 		D637EFD0195420C200765358 /* OSMParserHandlerDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSMParserHandlerDefault.h; sourceTree = "<group>"; };
 		D637EFD1195420C200765358 /* OSMParserHandlerDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSMParserHandlerDefault.m; sourceTree = "<group>"; };
+		D6C17AF019D5060C00776C56 /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward@2x.png"; sourceTree = "<group>"; };
+		D6C17AF219D5069A00776C56 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		D6D19727195413F90094893B /* OPEDone+CancelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OPEDone+CancelViewController.h"; sourceTree = "<group>"; };
 		D6D19728195413F90094893B /* OPEDone+CancelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OPEDone+CancelViewController.m"; sourceTree = "<group>"; };
 		D6D19729195413F90094893B /* OPEOpeningHoursEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPEOpeningHoursEditViewController.h; sourceTree = "<group>"; };
@@ -962,6 +966,8 @@
 		6326680717164578002CD7E4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D6C17AF219D5069A00776C56 /* back@2x.png */,
+				D6C17AF019D5060C00776C56 /* forward@2x.png */,
 				D6342BB819D3F75A00566EA1 /* upload@2x.png */,
 				D6D66E2F198629FE0090DD22 /* placeholder.png */,
 				D6D66E30198629FE0090DD22 /* placeholder@2x.png */,
@@ -1677,6 +1683,7 @@
 				6326693517164579002CD7E4 /* currency.png in Resources */,
 				6326693617164579002CD7E4 /* davidstar.png in Resources */,
 				D6D66E31198629FE0090DD22 /* placeholder.png in Resources */,
+				D6C17AF319D5069A00776C56 /* back@2x.png in Resources */,
 				6326693717164579002CD7E4 /* dentist.png in Resources */,
 				6326693817164579002CD7E4 /* doctor.png in Resources */,
 				6326693917164579002CD7E4 /* dog.png in Resources */,
@@ -1790,6 +1797,7 @@
 				632669A017164579002CD7E4 /* cabin@2x.png in Resources */,
 				632669A117164579002CD7E4 /* cafe@2x.png in Resources */,
 				632669A217164579002CD7E4 /* candy@2x.png in Resources */,
+				D6C17AF119D5060C00776C56 /* forward@2x.png in Resources */,
 				632669A317164579002CD7E4 /* car@2x.png in Resources */,
 				632669A417164579002CD7E4 /* car_rental@2x.png in Resources */,
 				632669A517164579002CD7E4 /* car_wash@2x.png in Resources */,
@@ -2156,7 +2164,7 @@
 				PRODUCT_NAME = MapEditer;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2180,7 +2188,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -90,19 +90,22 @@
     
     downloadBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"download.png"] style:UIBarButtonItemStylePlain target:self action:@selector(downloadButtonPressed:)];
     
+    forwardBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward.png"] style:UIBarButtonItemStylePlain target:self action:@selector(forwardButtonPressed:)];
+    
+    backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed:)];
+    
     UIBarButtonItem * flexibleSpaceBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
-    
     
     
     plusImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plus.png"]];
     plusImageView.center = self.mapView.center;
     [self.view addSubview:plusImageView];
-    
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+
     toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, self.view.bounds.size.width, 44)];
+    toolBar.barStyle = UIBarStyleBlack;
     toolBar.delegate = self;
-    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadBarButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,uploadBarButton,flexibleSpaceBarItem, settingsBarButton]];
+    [toolBar setItems:@[locationBarButton,flexibleSpaceBarItem,downloadBarButton,flexibleSpaceBarItem,backButton,flexibleSpaceBarItem,addBarButton,flexibleSpaceBarItem,forwardBarButton,flexibleSpaceBarItem,uploadBarButton,flexibleSpaceBarItem, settingsBarButton]];
+    
     [self.view addSubview:toolBar];
 }
 
@@ -258,7 +261,7 @@
     UIActivityIndicatorView * spinnerView= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinnerView startAnimating];
     NSMutableArray * items = [toolBar.items mutableCopy];
-    NSUInteger index = 6;
+    NSUInteger index = 10;
     [items removeObjectAtIndex:index];
     UIBarButtonItem *spinnerBarButton = [[UIBarButtonItem alloc] initWithCustomView:spinnerView];
     [items insertObject:spinnerBarButton atIndex:index];
@@ -267,7 +270,7 @@
 
 - (void)endUploading {
     NSMutableArray * items = [toolBar.items mutableCopy];
-    NSUInteger index = 6;
+    NSUInteger index = 10;
     [items removeObjectAtIndex:index];
     [items insertObject:uploadBarButton atIndex:index];
     toolBar.items = items;
@@ -408,6 +411,16 @@
 {
     userPressedLocatoinButton = YES;
     [self.mapView setCenterCoordinate: self.mapView.userLocation.coordinate animated:YES];
+}
+
+-(void)backButtonPressed:(id)sender
+{
+    //TODO
+}
+
+-(void)forwardButtonPressed:(id)sender
+{
+    //TODO
 }
 
 -(void)downloadButtonPressed:(id)sender

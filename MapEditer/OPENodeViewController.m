@@ -595,22 +595,16 @@
 
 - (void) deleteButtonPressed:(id)sender
 {
-    if (!self.apiManager.auth.canAuthorize)
-    {
-        [self showAuthError];
-    }
-    else {
-        DDLogInfo(@"Delete Button Pressed");
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:DELETE_ALERT_TITLE_STRING
-                                                          message:DELETE_ALERT_STRING
-                                                         delegate:self
-                                                cancelButtonTitle:CANCEL_STRING
-                                                otherButtonTitles:DELETE_STRING,nil];
-        message.tag = 1;
-        
-        [message show];
-    }
-   
+    DDLogInfo(@"Delete Button Pressed");
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:DELETE_ALERT_TITLE_STRING
+                                                      message:DELETE_ALERT_STRING
+                                                     delegate:self
+                                            cancelButtonTitle:CANCEL_STRING
+                                            otherButtonTitles:DELETE_STRING,nil];
+    message.tag = 1;
+    
+    [message show];
+
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

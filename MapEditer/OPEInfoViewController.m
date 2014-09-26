@@ -145,7 +145,16 @@
     if (section == 0) {
         return TILE_SOURCE_STRING;
     }
-    else {
+    else if (section == 1) {
+        return @"Login";
+    }
+    else if (section == 2) {
+        return @"Data";
+    }
+    else if (section == 3) {
+        return ABOUT_STRING;
+    }
+    else{
         return @"";
     }
 }
